@@ -7,12 +7,22 @@ using UnityEngine;
 public class CardValue
 {
     int current = 0;
-    int max = 0;
+    [SerializeField] int max = 0;
 
     public int Current => current;
     public int Max => max;
 
     public CardValue(int _value)
+    {
+        Init(_value);
+    }
+
+    public void Init()
+    {
+        current = max;
+    }
+
+    public void Init(int _value)
     {
         max = _value;
         current = _value;
@@ -39,8 +49,6 @@ public class CardValue
 [Serializable]
 public class Character
 {
-    int Id;
-
     public string characterName = "";
     public CardValue health = null;
     public CardValue damage = null;
@@ -55,17 +63,5 @@ public class Character
         health = new CardValue(_health);
 
         effect = new Effect();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

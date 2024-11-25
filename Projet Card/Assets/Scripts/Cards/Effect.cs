@@ -7,7 +7,7 @@ using UnityEngine;
 public class Effect
 {
     public string description = "";
-    public List<string> effects = new List<string>();
+    public List<string> effectNames = new List<string>();
     // Start is called before the first frame update
     void Start()
     {

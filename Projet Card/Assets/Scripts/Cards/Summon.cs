@@ -14,16 +14,13 @@ public class Summon : Card
     public override void Init()
     {
         base.Init();
+        summon.health.Init();
+        summon.damage.Init();
 
-        //test
-        summon = new Character("Human Warrior",10,40);
-        summon.effect.description = "Detruit une carte lorsqu'elle se fait toucher";
-        summon.effect.effects.Add("Haste");
-        summon.effect.effects.Add("Immediate");
 
-        base.components.nameField.text = summon.characterName;
-        base.components.damageField.text = summon.damage.Max.ToString();
-        base.components.healthField.text = summon.health.Max.ToString();
+        components.nameField.text = summon.characterName;
+        components.damageField.text = summon.damage.Current.ToString();
+        components.healthField.text = summon.health.Current.ToString();
 
         InitDescriptionAndEffectText();
     }
@@ -33,19 +30,39 @@ public class Summon : Card
         Effect _effect = summon.effect;
         if (_effect == null) return;
 
-
-        foreach(string _keyword in _effect.effects)
+        string[] _allKeywords =
         {
-            if(_keyword == "Cast" || _keyword == "Immediate" || _keyword == "Sacrifice")
-            {
-                base.components.effectField.text += _keyword + " :";
-            }
+            "Aura", 
+            "Awake",
+            "Power",
+            "Death Wish",
+            "Immediate",
+            "Sacrifice", 
+            "Profane",
+            "Devotion" 
+        };
+
+        int _effectSize = _effect.effectNames.Count;
+        for (int i = 0; i < _effectSize; i++)
+        {
+            string _keyword = _effect.effectNames[i];
+            if (ContainsKeyWord(_keyword, _allKeywords))
+                components.effectField.text += _keyword + " :";
             else
-            {
-                base.components.descriptionField.text += _keyword + ".\n";
-            }
+                components.descriptionField.text += _keyword + ".\n";
         }
 
-        base.components.descriptionField.text += _effect.description;
+        components.descriptionField.text += _effect.description;
+    }
+
+    bool ContainsKeyWord(string _word, string[] _list)
+    {
+        int _size = _list.Length;
+        for (int i = 0; i < _size; i++)
+        {
+            if (_word.Contains(_list[i]))
+                return true;
+        }
+        return false;
     }
 }
