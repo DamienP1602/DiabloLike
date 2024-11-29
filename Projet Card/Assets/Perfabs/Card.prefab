@@ -185,8 +185,8 @@ RectTransform:
   - {fileID: 4538656968001208828}
   m_Father: {fileID: 7084504370593974603}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.76, y: 0.4}
-  m_AnchorMax: {x: 0.96, y: 0.55}
+  m_AnchorMin: {x: 0.04, y: 0.4}
+  m_AnchorMax: {x: 0.24, y: 0.55}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -602,7 +602,16 @@ MonoBehaviour:
     descriptionField: {fileID: 7199461007566529680}
     sprite: {fileID: 9118646494665355519}
   cardSprite: {fileID: 0}
-  summon: {fileID: 0}
+  summon:
+    characterName: 
+    health:
+      max: 0
+    damage:
+      max: 0
+    races: []
+    effect:
+      description: 
+      effectNames: []
 --- !u!1 &6485268816543162746
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,8 +720,8 @@ RectTransform:
   - {fileID: 7388575367547398655}
   m_Father: {fileID: 7084504370593974603}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.04, y: 0.4}
-  m_AnchorMax: {x: 0.24, y: 0.55}
+  m_AnchorMin: {x: 0.76, y: 0.4}
+  m_AnchorMax: {x: 0.96, y: 0.55}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -32,6 +32,7 @@ public class Summon : Card
 
         string[] _allKeywords =
         {
+            "Cast",
             "Aura", 
             "Awake",
             "Power",
