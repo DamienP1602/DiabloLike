@@ -398,8 +398,10 @@
 "Assets/Scripts/Cards/Player.cs"
 "Assets/Scripts/Cards/Spell.cs"
 "Assets/Scripts/Cards/Summon.cs"
+"Assets/Scripts/DeckPile.cs"
 "Assets/Scripts/GameSide.cs"
 "Assets/Scripts/Managers/BoardManager.cs"
+"Assets/Scripts/Managers/PlayerManager.cs"
 "Assets/Scripts/Managers/Utils/Singleton.cs"
 -langversion:9.0
 

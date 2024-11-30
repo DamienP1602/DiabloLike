@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Deck : CardPile
 {
@@ -11,8 +12,9 @@ public class Deck : CardPile
     }
 
     // Update is called once per frame
-    void Update()
+    void Init()
     {
         
     }
+
 }

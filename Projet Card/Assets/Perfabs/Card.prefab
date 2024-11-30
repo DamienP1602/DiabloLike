@@ -512,6 +512,7 @@ GameObject:
   - component: {fileID: 39638823302011451}
   - component: {fileID: 6176777580951267094}
   - component: {fileID: 5319272285017909677}
+  - component: {fileID: 4112516429330398567}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -612,6 +613,23 @@ MonoBehaviour:
     effect:
       description: 
       effectNames: []
+--- !u!114 &4112516429330398567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5745390514246049846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77eba679591b0de4fa3d73ccc11b89fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card: {fileID: 5745390514246049846}
+  startingPosition: {x: 0, y: 0, z: 0}
+  isSelected: 0
+  canBeSelected: 1
+  tempButton: {fileID: 0}
 --- !u!1 &6485268816543162746
 GameObject:
   m_ObjectHideFlags: 0

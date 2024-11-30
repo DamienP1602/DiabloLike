@@ -386,8 +386,8 @@
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2023.2.20f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.Properties.SourceGenerator.dll"
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2023.2.20f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.SourceGenerators.dll"
 -analyzer:"C:/Program Files/Unity/Hub/Editor/2023.2.20f1/Editor/Data/Tools/Unity.SourceGenerators/Unity.UIToolkit.SourceGenerator.dll"
-"Assets/Scripts/CameraPlayer.cs"
-"Assets/Scripts/Cardhandler.cs"
+"Assets/Scripts/BoardSlot.cs"
+"Assets/Scripts/CardHandler.cs"
 "Assets/Scripts/Cards/Card.cs"
 "Assets/Scripts/Cards/CardPile.cs"
 "Assets/Scripts/Cards/Character.cs"
@@ -399,6 +399,8 @@
 "Assets/Scripts/Cards/Spell.cs"
 "Assets/Scripts/Cards/Summon.cs"
 "Assets/Scripts/GameSide.cs"
+"Assets/Scripts/Managers/BoardManager.cs"
+"Assets/Scripts/Managers/Utils/Singleton.cs"
 -langversion:9.0
 
 /deterministic

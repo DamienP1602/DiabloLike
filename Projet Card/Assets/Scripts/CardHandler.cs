@@ -9,6 +9,7 @@ public class CardHandler : MonoBehaviour
     [SerializeField] GameObject card = null;
     [SerializeField] Vector3 startingPosition = Vector3.zero;
     [SerializeField] bool isSelected = false;
+    [SerializeField] bool canBeSelected = true;
     [SerializeField] Button tempButton = null;
 
     public Transform Transform => card.transform;
@@ -29,12 +30,16 @@ public class CardHandler : MonoBehaviour
 
     public void ClickCard()
     {
+        if (!canBeSelected) return;
+
         if (!isSelected)
             startingPosition = card.transform.position;
         else if (isSelected)
         {
-
-            card.transform.position = startingPosition;
+            if (BoardManager.Instance.PlayerSide.CheckPosition(this))
+                canBeSelected = false;
+            else
+                card.transform.position = startingPosition;
         }
 
         isSelected = !isSelected;

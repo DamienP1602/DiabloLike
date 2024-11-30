@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class GameSide : MonoBehaviour
@@ -8,34 +10,48 @@ public class GameSide : MonoBehaviour
 
     [SerializeField] string id;
     [SerializeField] List<BoardSlot> cardPositions = new List<BoardSlot>();
-    [SerializeField] GameObject lifeAncer = null;
-    [SerializeField] GameObject deckAncer = null;
-    // Start is called before the first frame update
+    [SerializeField] DeckPile deck = null;
+
+    public string ID => id;
+
     void Start()
     {
-        BoardManager.Instance.Add(this,id);
+        init();
     }
 
     // Update is called once per frame
-    void Update()
+    void init()
     {
-        
+        BoardManager.Instance.Add(this,id);
+        deck = GetComponentInChildren<DeckPile>();
+        deck.SetSide(this);
     }
 
-    bool CheckPosition(CardHandler _card)
+    public bool CheckPosition(CardHandler _card)
     {
-        for (int i = 0; i < BOARD_SIZE; i++)
+        //BOARD_SIZE
+        for (int i = 0; i < 1; i++)
         {
             BoardSlot _slot = cardPositions[i];
-            if (Vector3.Distance(Input.mousePosition, _slot.transform.position) == 0.0f)
+            if (_slot.HasCard) continue;
+
+            if (Overlaps(_slot))
             {
                 _slot.SetCard(_card);
                 return true;
-            }
-                
+            } 
         }
         return false;
     }
 
-    
+    bool Overlaps(BoardSlot _slot)
+    {
+        Rect _mouseRect = new Rect(Input.mousePosition, new Vector2(1.0f, 1.0f));
+        Vector2 _slotSize = new Vector2(200.0f, 300.0f);
+        Vector2 _slotPosition = (Vector2)_slot.transform.position - (_slotSize / 2.0f);
+        Rect _slotRect = new Rect(_slotPosition, new Vector2(200.0f, 300.0f));
+
+        return _slotRect.Overlaps(_mouseRect); 
+    }
+
 }
