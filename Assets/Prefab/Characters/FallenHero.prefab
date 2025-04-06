@@ -1,0 +1,252 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7086150782400259719
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3936698897698189005}
+  - component: {fileID: 520472564099386768}
+  - component: {fileID: 4321182444544008564}
+  - component: {fileID: 2881734420202022093}
+  - component: {fileID: 7007406703267707543}
+  - component: {fileID: 6346370277151789031}
+  - component: {fileID: 7306213063628496619}
+  - component: {fileID: 578787205634683124}
+  - component: {fileID: 7121143840990247535}
+  m_Layer: 6
+  m_Name: FallenHero
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3936698897698189005
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086150782400259719}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 12.621, y: 0.529, z: 3.442}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 4414285534098341399}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &520472564099386768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086150782400259719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51b22819d7467da42a52878024a4c383, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  showDetectionRange: 1
+  detectionRange: 6
+--- !u!114 &4321182444544008564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086150782400259719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5944b05c19cba3498c2c4882f0f6313, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2881734420202022093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086150782400259719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2df0db21f4016e748bd3fdd5ef2ef8dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootTable: {fileID: 11400000, guid: 93989a7f3295527449f6b7a7129efe4c, type: 2}
+--- !u!114 &7007406703267707543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086150782400259719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b8386444c656784880a0e74afb166e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  level:
+    value: 1
+  experience:
+    value: 0
+  experienceCap:
+    value: 1
+  statPoints:
+    value: 0
+  type: 10
+  maxHealth:
+    value: 30
+  currentHealth:
+    value: 30
+  maxMana:
+    value: 0
+  currentMana:
+    value: 0
+  armor:
+    value: 1
+  resistance:
+    value: 1
+  damage:
+    value: 4
+  strength:
+    value: 2
+  intelligence:
+    value: 2
+  agility:
+    value: 2
+--- !u!114 &6346370277151789031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086150782400259719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b5bb4f519c627045ba9e7534d447be0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+--- !u!114 &7306213063628496619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086150782400259719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41d9b5fee3094d2409919198f476d547, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drawDestination: 0
+  moveSpeed: 3
+  rotateSpeed: 500
+  minDist: 0
+  canMove: 1
+  cantMoveDuration: 0
+  cantMoveProgession: 0
+  destination: {x: 0, y: 0, z: 0}
+  target: {fileID: 0}
+--- !u!114 &578787205634683124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086150782400259719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a80292c5348918a4dbb63a0b4e786c17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 1.1
+  drawRange: 0
+  target: {fileID: 0}
+  data:
+    attackCooldown: 1
+    attackDelay: 1
+    currentCooldown: 0
+    canAttack: 1
+--- !u!114 &7121143840990247535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7086150782400259719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c4353e2f713504a83ac144f6e9bed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterName: Fallen Hero (Boss)
+--- !u!1001 &4235644466082273788
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3936698897698189005}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 4d83eb4537519ee42a4e086cf7b94b87, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d83eb4537519ee42a4e086cf7b94b87, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d83eb4537519ee42a4e086cf7b94b87, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d83eb4537519ee42a4e086cf7b94b87, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d83eb4537519ee42a4e086cf7b94b87, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d83eb4537519ee42a4e086cf7b94b87, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d83eb4537519ee42a4e086cf7b94b87, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d83eb4537519ee42a4e086cf7b94b87, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d83eb4537519ee42a4e086cf7b94b87, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 4d83eb4537519ee42a4e086cf7b94b87, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4d83eb4537519ee42a4e086cf7b94b87, type: 3}
+      propertyPath: m_Name
+      value: Body
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4d83eb4537519ee42a4e086cf7b94b87, type: 3}
+--- !u!4 &4414285534098341399 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4d83eb4537519ee42a4e086cf7b94b87, type: 3}
+  m_PrefabInstance: {fileID: 4235644466082273788}
+  m_PrefabAsset: {fileID: 0}

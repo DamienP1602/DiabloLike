@@ -20,10 +20,13 @@ public class SkillsPanel : MonoBehaviour
 
     public void LoadSkillImage()
     {
-        int _selectedSpellsSize = selectedSpells.Count;
-        for (int _i = 0; _i < _selectedSpellsSize; _i++)
+        int _iconsSize = icons.Count;
+        for (int _i = 0; _i < _iconsSize; _i++)
         {
-            icons[_i].SetIcon(selectedSpells[_i].icon);
+            if (_i >= selectedSpells.Count)
+                icons[_i].ResetIcon();
+            else
+                icons[_i].SetIcon(selectedSpells[_i].icon);
         }
     }
 

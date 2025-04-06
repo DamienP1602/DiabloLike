@@ -36,6 +36,7 @@ public class PlayerOverlay : MonoBehaviour
         inventoryPanel.OnEquipEquipment += (_item1, _item2) => classPanel.StatsPanel.UpdateData();
 
         classPanel.CompetencesPanel.OnSpellLearn += (_spell) =>  skillsPanel.LoadSkillImage();
+        classPanel.CompetencesPanel.OnSpellDesequip += (_spell) =>  skillsPanel.LoadSkillImage();
     }
 
     public void OpenInventory() => inventoryPanel.Open();

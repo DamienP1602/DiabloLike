@@ -18,6 +18,7 @@ public class SkillIcon : MonoBehaviour
 
     public void SetBackground(Texture2D _backgroundTexture) => background.texture = _backgroundTexture;
     public void SetIcon(Texture2D _iconTexture) => icon.texture = _iconTexture;
+    public void ResetIcon() => icon.texture = null;
     public void SetForeground(SpellState _state)
     {
         List<Color> _colors = new() { new Color(0.0f, 0.0f, 0.5f, 0.95f), new Color(0.4f, 0.4f, 0.4f, 0.85f), new Color(0.0f, 0.0f,0.0f,0.0f) };

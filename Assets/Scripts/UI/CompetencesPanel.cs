@@ -7,6 +7,7 @@ using UnityEngine;
 public class CompetencesPanel : MonoBehaviour
 {
     public event Action<Spell> OnSpellLearn;
+    public event Action<Spell> OnSpellDesequip;
 
     [SerializeField] List<CompetenceIcon> allCompetencesToLearn;
 
@@ -17,7 +18,7 @@ public class CompetencesPanel : MonoBehaviour
         allCompetencesToLearn = GetComponentsInChildren<CompetenceIcon>().ToList();
         foreach (CompetenceIcon _comp in allCompetencesToLearn)
         {
-            _comp.Button.onClick.AddListener(() => _comp.LearnSpell(OnSpellLearn));
+            _comp.Button.onClick.AddListener(() => _comp.LearnSpell(OnSpellLearn, OnSpellDesequip));
         }
     }
 

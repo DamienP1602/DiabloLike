@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f438517223452c24a920c3fa8ff9e40b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spellToLear: {fileID: 11400000, guid: 4fbc9ed8fefbcfe43868edb02a60d529, type: 2}
+  spell: {fileID: 11400000, guid: 4fbc9ed8fefbcfe43868edb02a60d529, type: 2}
   minimumLevel: 1
   button: {fileID: 6303896424929313071}
   icon: {fileID: 1717469572032481447}

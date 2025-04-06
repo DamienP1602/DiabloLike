@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class CompetenceIcon : MonoBehaviour
 {
-    [SerializeField] Spell spellToLear;
+    [SerializeField] Spell spell;
     [SerializeField] int minimumLevel;
     [SerializeField] Button button;
     [SerializeField] RawImage icon;
@@ -18,7 +18,7 @@ public class CompetenceIcon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        icon.texture = spellToLear.icon;
+        icon.texture = spell.icon;
     }
 
     // Update is called once per frame
@@ -33,11 +33,16 @@ public class CompetenceIcon : MonoBehaviour
         icon.color = _value ? new Color(1.0f,1.0f,1.0f) : new Color(0.3f, 0.3f,0.3f);
     }
 
-    public void LearnSpell(Action<Spell> _event)
+    public void LearnSpell(Action<Spell> _learnAction, Action<Spell> _desequipAction)
     {
-        if (isLearned) return;
+        if (isLearned)
+        {
+            _desequipAction(spell);
+            isLearned = false;
+            return;
+        }
 
         isLearned = true;
-        _event?.Invoke(spellToLear);
+        _learnAction?.Invoke(spell);
     }
 }

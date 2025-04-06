@@ -67,6 +67,7 @@ public class Player : BaseCharacter
         hud.Overlay.InventoryPanel.OnEquipEquipment += inventory.EquipItem;
 
         hud.Overlay.ClassPanel.CompetencesPanel.OnSpellLearn += spellComp.AddSpell;
+        hud.Overlay.ClassPanel.CompetencesPanel.OnSpellDesequip += spellComp.RemoveSpell;
 
 
         inventory.OnConsumableUse += hud.Overlay.UpdateConsumable;
