@@ -12,11 +12,16 @@ public class Player : BaseCharacter
     Inventory inventory = null;
     SpellComponent spellComp = null;
 
-    override protected void Start()
+    private void Awake()
     {
         base.Start();
-        SetInputs();
-        SetEventOnUI();
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        InitPlayer(true);
     }
 
     void Update()
@@ -27,18 +32,12 @@ public class Player : BaseCharacter
     override protected void Init() 
     {
         base.Init();
-        cameraComp = GetComponent<CameraComponent>();
+
         clickComp = GetComponent<ClickComponent>();
-        hud = GetComponent<HUD>();
+
         inputs = GetComponent<InputComponent>();
         inventory = GetComponent<Inventory>();
         spellComp = GetComponent<SpellComponent>();
-
-        cameraComp.targetToFollow = transform;
-        hud.Init(this);
-
-        //Todo => Create Competence Tree from class when it will be selectable
-        hud.Overlay.ClassPanel.CompetencesPanel.InitFromClass();
     }
 
     override protected void EventAssignation()
@@ -53,6 +52,26 @@ public class Player : BaseCharacter
         clickComp.OnTarget += (_target) => movementComponent.SetTarget(_target, attackComponent.Range);
 
         attackComponent.OnKillTarget += () => movementComponent.SetTarget(null, 0.0f);
+    }
+
+
+    public void InitPlayer(bool _checkForMultiplayerOwnership)
+    {
+        cameraComp = GetComponent<CameraComponent>();
+        hud = GetComponent<HUD>();
+
+        if (_checkForMultiplayerOwnership)
+        {
+            if (!IsOwner) return;
+        }
+
+        cameraComp.CreateCamera();
+
+        hud.Init(this);
+        //Todo => Create Competence Tree from class when it will be selectable
+        hud.Overlay.ClassPanel.CompetencesPanel.InitFromClass();
+        SetEventOnUI();
+        SetInputs();
     }
 
     void SetEventOnUI()
@@ -80,6 +99,7 @@ public class Player : BaseCharacter
 
     void SetInputs()
     {
+        inputs.PauseAction.performed += (_context) => hud.Overlay.TogglePausePanel();
         inputs.PotionAction.performed += inventory.UseConsumable;
         inputs.InventoryAction.performed += (_context) => hud.ToggleInventory();
         inputs.InventoryAction.performed += (_context) => clickComp.SetCanClick(hud.CanClick);
@@ -98,4 +118,5 @@ public class Player : BaseCharacter
         inputs.RSpell.performed += (_context) => spellComp.LaunchSpell(3);
 
     }
+
 }

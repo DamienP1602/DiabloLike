@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class PlayerOverlay : MonoBehaviour
 {
+    [SerializeField] PausePanel pausePanel;
     [SerializeField] InventoryPanel inventoryPanel;
     [SerializeField] ClassPanelUI classPanel;
     [SerializeField] RessourcePanel ressourcesPanel;
     [SerializeField] SkillsPanel skillsPanel;
     [SerializeField] ConsumablePanel consumablePanel;
 
+    public PausePanel PausePanel => pausePanel;
     public RessourcePanel RessourcesPanel => ressourcesPanel;
     public SkillsPanel SkillsPanel => skillsPanel;
     public InventoryPanel InventoryPanel => inventoryPanel;
@@ -37,6 +39,19 @@ public class PlayerOverlay : MonoBehaviour
 
         classPanel.CompetencesPanel.OnSpellLearn += (_spell) =>  skillsPanel.LoadSkillImage();
         classPanel.CompetencesPanel.OnSpellDesequip += (_spell) =>  skillsPanel.LoadSkillImage();
+    }
+
+    public void TogglePausePanel()
+    {
+        if (pausePanel.enabled)
+        {
+            Time.timeScale = 0.0f;
+            pausePanel.gameObject.SetActive(true);
+        }
+        else
+        {
+            pausePanel.ResumeGame();
+        }
     }
 
     public void OpenInventory() => inventoryPanel.Open();

@@ -17,9 +17,6 @@ public class InputComponent : MonoBehaviour
     InputAction eSpell = null;
     InputAction rSpell = null;
 
-    InputAction spellsAction = null;
-
-
     public InputAction ClickAction => clickAction;
     public InputAction PauseAction => pauseAction;
     public InputAction InventoryAction => inventoryAction;
@@ -36,7 +33,7 @@ public class InputComponent : MonoBehaviour
     }
     private void OnEnable()
     {
-        pauseAction = inputs.Player.Pause;
+        pauseAction = inputs.Player.Pause;        
         ConsumableAction = inputs.Player.Consumable;
         inventoryAction = inputs.Player.Inventory;
         clickAction = inputs.Player.ClickInput;

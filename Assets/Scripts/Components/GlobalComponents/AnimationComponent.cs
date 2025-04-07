@@ -1,44 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
+using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 
-public class AnimationComponent : MonoBehaviour
+public class AnimationComponent : ClientNetworkAnimator
 {
-    [SerializeField] Animator animator;
+    //[SerializeField] Animator Animator;
 
-    // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        Animator = GetComponent<Animator>();
+        OnIsServerAuthoritative();
+    }
+
+    protected override bool OnIsServerAuthoritative()
+    {
+        return false;
     }
 
     public void StartMovementAnimation()
     {
-        animator.SetBool("isRunning", true);
+        Animator.SetBool("isRunning", true);
     }
 
     public void StopMovementAnimation()
     {
-        animator.SetBool("isRunning", false);
+        Animator.SetBool("isRunning", false);
     }
 
     public void StartAttackAnimation()
     {
-        animator.SetBool("attack", true);
+        Animator.SetBool("attack", true);
     }
 
     public void StopAttackAnimation()
     {
-        animator.SetBool("attack", false);
+        Animator.SetBool("attack", false);
     }
 
     public void StartSpellAnimation(string _spellName)
     {
-        animator.SetBool(_spellName, true);
+        Animator.SetBool(_spellName, true);
     }
 
     public void StopSpellAnimation(string _spellName)
     {
-        animator.SetBool(_spellName, false);
+        Animator.SetBool(_spellName, false);
     }
 }

@@ -14,10 +14,27 @@ public class DetectionComponent : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = FindFirstObjectByType<Player>();
+
     }
 
-    public bool IsClose() => Vector3.Distance(transform.position, target.transform.position) <= detectionRange;
+    public bool IsClose()
+    {
+        List<PlayerGameInfo> _allPlayers = GameManager.Instance.AllPlayers;
+        foreach (PlayerGameInfo _data in _allPlayers)
+        {
+            Player _player = _data.objectReference;
+
+            if (!_player) continue;
+
+            if (Vector3.Distance(transform.position, _player.transform.position) <= detectionRange)
+            {
+                target = _player;
+                return true;
+            }
+        }
+        target = null;
+        return false;        
+    }
 
     private void OnDrawGizmos()
     {

@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class MovementComponent : MonoBehaviour
+public class MovementComponent : NetworkBehaviour
 {
     AnimationComponent animRef = null;
-
 
     [Header("DEBUG")]
     [SerializeField] bool drawDestination;
@@ -56,6 +56,7 @@ public class MovementComponent : MonoBehaviour
     {
         canMove = false;
         cantMoveDuration = _duration;
+
         animRef.StopMovementAnimation();
     }
 
@@ -75,23 +76,24 @@ public class MovementComponent : MonoBehaviour
 
     void MoveToDestination()
     {
-        if (IsAtLocation())
-        {
-            animRef.StopMovementAnimation();
-            return;
-        }
+        if (IsAtLocation()) return;
 
         animRef.StartMovementAnimation();
 
         Vector3 _newPosition = Vector3.MoveTowards(transform.position, destination, moveSpeed * Time.deltaTime);
         transform.position = _newPosition;
+
+        if (IsAtLocation())
+        {
+            animRef.StopMovementAnimation();
+            return;
+        }
     }
 
     void RotateToDestination()
     {
         Vector3 _lookAt = Destination - transform.position;
-        if (_lookAt == Vector3.zero)
-            return;
+        if (_lookAt == Vector3.zero) return;
 
         Quaternion _rot = Quaternion.LookRotation(_lookAt);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, _rot, Time.deltaTime * rotateSpeed);
@@ -106,7 +108,7 @@ public class MovementComponent : MonoBehaviour
     public void SetTarget(GameObject _target, float _rangeAttack)
     {
         target = _target;
-        minDist = GetComponent<AttackComponent>().Range;
+        minDist = _rangeAttack;
     }
 
     private void OnDrawGizmos()

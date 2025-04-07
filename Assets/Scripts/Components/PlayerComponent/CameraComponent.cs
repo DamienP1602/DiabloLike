@@ -1,23 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class CameraComponent : MonoBehaviour
+public class CameraComponent : NetworkBehaviour
 {
-    [SerializeField] Camera renderCamera = null;
-    [SerializeField] Vector3 offset = new Vector3(5.0f,5.0f,-5.0f);
-    [SerializeField] float moveSpeed = 5.0f;
+    [SerializeField] Camera cameraRef;
+    [SerializeField] Camera renderCamera;
+    [SerializeField] Vector3 offset;
+    [SerializeField] float moveSpeed;
 
-    public Transform targetToFollow = null;
+    public Transform targetToFollow;
     public Camera RenderCamera => renderCamera;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+
     }
-    //
-    // Update is called once per frame
+
+    public void CreateCamera()
+    {
+        renderCamera = Instantiate(cameraRef);
+        renderCamera.transform.eulerAngles = new Vector3(40.0f, -45.0f, 0.0f);
+
+        offset = new Vector3(5.0f, 5.0f, -5.0f);
+        targetToFollow = gameObject.transform;
+        DontDestroyOnLoad(renderCamera);
+    }
+
     void Update()
     {
         if (!renderCamera) return;

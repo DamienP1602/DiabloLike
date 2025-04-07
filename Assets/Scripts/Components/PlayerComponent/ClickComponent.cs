@@ -12,11 +12,18 @@ public class ClickComponent : MonoBehaviour
     [SerializeField] LayerMask groundLayer = 0;
     [SerializeField] LayerMask enemyLayer = 0;
 
+    CameraComponent cameraRef;
+
+    public void Start()
+    {
+        cameraRef = GetComponent<CameraComponent>();
+    }
+
     public void RaycastOnClick()
     {
         if (canClick)
         {
-            Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray _ray = cameraRef.RenderCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit _result;
 
             //If the Ray touch the player, return

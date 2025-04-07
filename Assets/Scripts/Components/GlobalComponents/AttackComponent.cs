@@ -1,4 +1,5 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
 [Serializable]
@@ -21,7 +22,7 @@ class AttackData
     }
 }
 
-public class AttackComponent : MonoBehaviour
+public class AttackComponent : NetworkBehaviour
 {
     public event Action<float> onLaunchAttack = null;
     public event Action OnKillTarget = null;
@@ -73,6 +74,7 @@ public class AttackComponent : MonoBehaviour
     public void LaunchAttack()
     {
         animRef.StartAttackAnimation();
+
         data.canAttack = false;
         onLaunchAttack?.Invoke(data.attackDelay - 0.1f);
 
