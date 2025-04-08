@@ -17,7 +17,7 @@ MonoBehaviour:
   itemName: Lesser Healing Potion
   itemPrice: 5
   ratity:
-    rarity: 1
+    rarity: 0
   type: 0
   canBeStacked: 1
   lifeRestaured: 5

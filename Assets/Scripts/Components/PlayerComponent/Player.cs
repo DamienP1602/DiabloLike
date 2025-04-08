@@ -14,7 +14,6 @@ public class Player : BaseCharacter
 
     private void Awake()
     {
-        base.Start();
         DontDestroyOnLoad(gameObject);
     }
 
@@ -22,6 +21,16 @@ public class Player : BaseCharacter
     {
         base.OnNetworkSpawn();
         InitPlayer(true);
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        //DEBUG TO REMOVE
+        InitPlayer(false);
+
+        GameManager.Instance.AddPlayer(this);
     }
 
     void Update()
@@ -102,9 +111,9 @@ public class Player : BaseCharacter
         inputs.PauseAction.performed += (_context) => hud.Overlay.TogglePausePanel();
         inputs.PotionAction.performed += inventory.UseConsumable;
         inputs.InventoryAction.performed += (_context) => hud.ToggleInventory();
-        inputs.InventoryAction.performed += (_context) => clickComp.SetCanClick(hud.CanClick);
+        inputs.InventoryAction.performed += (_context) => clickComp.SetOverlayMode(hud.IsInOverlay);
         inputs.StatsAction.performed += (_context) => hud.ToggleClassPanel();
-        inputs.StatsAction.performed += (_context) => clickComp.SetCanClick(hud.CanClick);
+        inputs.StatsAction.performed += (_context) => clickComp.SetOverlayMode(hud.IsInOverlay);
         inputs.ClickAction.performed += (_context) => clickComp.RaycastOnClick();
 
         //Spells

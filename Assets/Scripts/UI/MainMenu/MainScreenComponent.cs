@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class MainScreenComponent : MonoBehaviour
 {
-    [SerializeField] Button backgroundButton;
+    [SerializeField] CustomButton backgroundButton;
 
-    public Button Button => backgroundButton;
+    public CustomButton Button => backgroundButton;
 
     private void Awake()
     {
-        backgroundButton = GetComponent<Button>();
+        backgroundButton = GetComponent<CustomButton>();
     }
 }

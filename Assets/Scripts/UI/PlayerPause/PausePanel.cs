@@ -8,17 +8,17 @@ using UnityEngine.UI;
 
 public class PausePanel : MonoBehaviour
 {
-    [SerializeField] Button resumeButton;
-    [SerializeField] Button settingsButton;
-    [SerializeField] Button quitGamebutton;
+    [SerializeField] CustomButton resumeButton;
+    [SerializeField] CustomButton settingsButton;
+    [SerializeField] CustomButton quitGamebutton;
 
     Player playerRef;
 
     private void Awake()
     {
-        resumeButton.onClick.AddListener(ResumeGame);
-        settingsButton.onClick.AddListener(OpenSettings);
-        quitGamebutton.onClick.AddListener(QuitGame);
+        resumeButton.AddLeftClickAction(ResumeGame);
+        settingsButton.AddLeftClickAction(OpenSettings);
+        quitGamebutton.AddLeftClickAction(QuitGame);
     }
 
     public void ResumeGame()

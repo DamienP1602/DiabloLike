@@ -6,11 +6,12 @@ public class ClickComponent : MonoBehaviour
     public event Action<GameObject> OnTarget = null;
     public event Action<Vector3> OnGround = null;
 
-    bool canClick = true;
+    bool overlayMode = false;
 
     [SerializeField] LayerMask playerLayer = 0;
     [SerializeField] LayerMask groundLayer = 0;
     [SerializeField] LayerMask enemyLayer = 0;
+    [SerializeField] LayerMask UILayer = 0;
 
     CameraComponent cameraRef;
 
@@ -21,7 +22,7 @@ public class ClickComponent : MonoBehaviour
 
     public void RaycastOnClick()
     {
-        if (canClick)
+        if (!overlayMode)
         {
             Ray _ray = cameraRef.RenderCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit _result;
@@ -46,5 +47,5 @@ public class ClickComponent : MonoBehaviour
         }
     }
 
-    public void SetCanClick(bool _canClick) => canClick = _canClick;
+    public void SetOverlayMode(bool _value) => overlayMode = _value;
 }

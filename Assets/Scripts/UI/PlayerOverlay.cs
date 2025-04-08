@@ -34,7 +34,7 @@ public class PlayerOverlay : MonoBehaviour
 
     public void InitEvent()
     {
-        inventoryPanel.OnEquipConsumable += SetConsumable;
+        inventoryPanel.OnEquipConsumable += (_index, _newData, _olData) =>  SetConsumable(_index,_newData);
         inventoryPanel.OnEquipEquipment += (_item1, _item2) => classPanel.StatsPanel.UpdateData();
 
         classPanel.CompetencesPanel.OnSpellLearn += (_spell) =>  skillsPanel.LoadSkillImage();

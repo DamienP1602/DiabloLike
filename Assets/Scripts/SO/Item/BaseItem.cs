@@ -2,9 +2,10 @@ using UnityEngine;
 
 public enum ItemType
 {
-    CONSOMMABLE,
-    WEAPON,
-    ARMOR
+    NONE = 0,
+    CONSOMMABLE = 1,
+    WEAPON = 2,
+    ARMOR = 3 
 }
 
 public abstract class BaseItem : ScriptableObject

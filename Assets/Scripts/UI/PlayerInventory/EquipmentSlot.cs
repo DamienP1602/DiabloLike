@@ -4,22 +4,38 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum EquipmentType
+{
+    NONE,
+    CONSUMABLE_ONE,
+    CONSUMABLE_TWO,
+    WEAPON_RIGHT,
+}
+
 public class EquipmentSlot : InventoryItem
 {
-    [SerializeField] ItemType type;
+    [SerializeField] EquipmentType type;
 
-    public ItemType Type => type;
+    public EquipmentType Type => type;
 
     protected override void Awake()
     {
         base.Awake();
     }
 
-    public override bool SetItem(ItemStored _data)
+    public bool IsItemGoodType(ItemType _type)
     {
-        if (_data.item.type != type)
-            return false;
-
-        return base.SetItem(_data);
+        switch (_type)
+        {
+            case ItemType.NONE:
+                return false;
+            case ItemType.CONSOMMABLE:
+                return type == EquipmentType.CONSUMABLE_ONE || type == EquipmentType.CONSUMABLE_TWO;
+            case ItemType.WEAPON:
+                return type == EquipmentType.WEAPON_RIGHT;
+            case ItemType.ARMOR:
+                return false;
+        }
+        return false;
     }
 }

@@ -18,7 +18,7 @@ public class CompetencesPanel : MonoBehaviour
         allCompetencesToLearn = GetComponentsInChildren<CompetenceIcon>().ToList();
         foreach (CompetenceIcon _comp in allCompetencesToLearn)
         {
-            _comp.Button.onClick.AddListener(() => _comp.LearnSpell(OnSpellLearn, OnSpellDesequip));
+            _comp.Button.AddLeftClickAction(() => _comp.LearnSpell(OnSpellLearn, OnSpellDesequip));
         }
     }
 

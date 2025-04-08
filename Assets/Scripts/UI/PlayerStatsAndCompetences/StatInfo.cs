@@ -10,7 +10,7 @@ public class StatInfo : MonoBehaviour
 {
     public event Action OnButtonClick = null; 
     [SerializeField] TMP_Text valueText = null;
-    [SerializeField] Button addValueButton = null;
+    [SerializeField] CustomButton addValueButton = null;
 
     public void Init(int _value, int _pointAmount)
     {
@@ -22,8 +22,8 @@ public class StatInfo : MonoBehaviour
 
     public void InitButton(Action _action)
     {
-        addValueButton.onClick.AddListener(() => _action?.Invoke());
-        addValueButton.onClick.AddListener(() => OnButtonClick?.Invoke());
+        addValueButton.AddLeftClickAction(() => _action?.Invoke());
+        addValueButton.AddLeftClickAction(() => OnButtonClick?.Invoke());
     }
 
 }

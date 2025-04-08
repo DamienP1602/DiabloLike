@@ -17,7 +17,7 @@ MonoBehaviour:
   itemName: Iron Sword
   itemPrice: 15
   ratity:
-    rarity: 3
+    rarity: 0
   type: 1
   canBeStacked: 0
   damage: 3

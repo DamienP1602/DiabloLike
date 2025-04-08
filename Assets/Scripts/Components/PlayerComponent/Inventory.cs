@@ -115,8 +115,20 @@ public class Inventory : MonoBehaviour
     }
 
     // TODO => Pas ouf à refaire
-    public void SetConsumable(int _index,ItemStored _consumable)
+    public void SetConsumable(int _index,ItemStored _consumable, ItemStored _oldData = null)
     {
+        if (_consumable == null)
+        {
+            AddItem(_oldData.item);
+
+            if (_index == 1)
+                consumableSlotOne.item = null;
+            if (_index == 2)
+                consumableSlotTwo.item = null;
+
+            return;
+        }
+
         if (_index == 1)
         {
             if (consumableSlotOne.item == null)
@@ -169,19 +181,32 @@ public class Inventory : MonoBehaviour
         StatsComponent _ownerStats = GetComponent<StatsComponent>();
         if (!_ownerStats) return;
 
-        SO_Weapon _weapon = _data.item as SO_Weapon;
-        if (!_weapon) return;
+        // If there's data => equip item
+        if (_data != null)
+        {
+            SO_Weapon _weapon = _data.item as SO_Weapon;
+            if (!_weapon) return;
 
-        if (_oldData != null)
+            if (_oldData != null)
+            {
+                SO_Weapon _oldWeapon = _oldData.item as SO_Weapon;
+                if (!_oldWeapon) return;
+
+                _oldWeapon.Unequip(_ownerStats);
+                AddItem(_oldWeapon);
+            }
+
+            _weapon.Equip(_ownerStats);
+            DestroyItem(_data.item, false);
+        }
+        // _data = null => remove old item for select item in UI
+        else
         {
             SO_Weapon _oldWeapon = _oldData.item as SO_Weapon;
             if (!_oldWeapon) return;
 
             _oldWeapon.Unequip(_ownerStats);
             AddItem(_oldWeapon);
-        }
-
-        _weapon.Equip(_ownerStats);
-        DestroyItem(_data.item, false);
+        }        
     }
 }

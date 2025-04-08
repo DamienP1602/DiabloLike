@@ -17,6 +17,12 @@ public class ConsumableSlot : MonoBehaviour
 
     public void SetItem(ItemStored _data)
     {
+        if (_data == null)
+        {
+            ResetItem();
+            return;
+        }
+
         data = _data;
         sprite.color = Color.white;
         sprite.texture = _data.item.icon;

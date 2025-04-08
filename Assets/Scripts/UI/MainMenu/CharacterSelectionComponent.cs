@@ -10,23 +10,25 @@ public class CharacterSelectionComponent : MonoBehaviour
 {
     [Header("Character Creation Side")]
     [SerializeField] GameObject charactersPanel; // => TODO Behaviour
-    [SerializeField] Button CreateCharacterButton;
+    [SerializeField] CustomButton createCharacterButton;
 
     [Header("Play Buttons")]
-    [SerializeField] Button playButton;
+    [SerializeField] CustomButton playButton;
 
     [Header("Play Options")]
     [SerializeField] GameObject playOptionPanel;
-    [SerializeField] Button singleplayerButton;
-    [SerializeField] Button createMultiplayerSessionButton;
-    [SerializeField] Button joinMultiplayerSessionButton;
+    [SerializeField] CustomButton singleplayerButton;
+    [SerializeField] CustomButton createMultiplayerSessionButton;
+    [SerializeField] CustomButton joinMultiplayerSessionButton;
 
     [Header("Quit")]
-    [SerializeField] Button quitButton;
+    [SerializeField] CustomButton quitButton;
 
     [Header("Settings")]
     [SerializeField] GameObject settingsPanel; // => TODO Behaviour
-    [SerializeField] Button settingsButton;
+    [SerializeField] CustomButton settingsButton;
+
+    public CustomButton CreateCharacterButton => createCharacterButton;
 
     void Start()
     {
@@ -40,17 +42,15 @@ public class CharacterSelectionComponent : MonoBehaviour
 
     void SetButtons()
     {
-        //CreateCharacterButton.onClick.AddListener();
+        playButton.AddLeftClickAction(OpenPlayOptionPanel);
 
-        playButton.onClick.AddListener(OpenPlayOptionPanel);
+        singleplayerButton.AddLeftClickAction(PlaySingleplayer);
+        createMultiplayerSessionButton.AddLeftClickAction(CreateSession);
+        joinMultiplayerSessionButton.AddLeftClickAction(JoinSession);
 
-        singleplayerButton.onClick.AddListener(PlaySingleplayer);
-        createMultiplayerSessionButton.onClick.AddListener(CreateSession);
-        joinMultiplayerSessionButton.onClick.AddListener(JoinSession);
+        quitButton.AddLeftClickAction(CloseGame);
 
-        quitButton.onClick.AddListener(CloseGame);
-
-        //settingsButton.onClick.AddListener();
+        settingsButton.AddLeftClickAction(() => print("Settings"));
     }
 
     void CloseGame()
@@ -75,6 +75,7 @@ public class CharacterSelectionComponent : MonoBehaviour
     void PlaySingleplayer()
     {
         LoadLevel();
+        // Load Selected Character
         GameManager.Instance.SetMultiplayer(false);
         GameManager.Instance.CreatePlayer();
     }
@@ -82,6 +83,7 @@ public class CharacterSelectionComponent : MonoBehaviour
     void CreateSession()
     {
         LoadLevel();
+        // Load Selected Character
         NetworkManager.Singleton.StartHost();
         GameManager.Instance.SetMultiplayer(true);
     }
@@ -89,6 +91,7 @@ public class CharacterSelectionComponent : MonoBehaviour
     void JoinSession()
     {
         LoadLevel();
+        // Load Selected Character
         NetworkManager.Singleton.StartClient();
         GameManager.Instance.SetMultiplayer(true);
     }

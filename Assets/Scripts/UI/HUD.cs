@@ -8,7 +8,7 @@ public class HUD : MonoBehaviour
 
     public PlayerOverlay Overlay { get; private set; }
 
-    public bool CanClick => !statsOpen && !inventoryOpen;
+    public bool IsInOverlay => statsOpen || inventoryOpen;
 
     // Start is called before the first frame update
     void Start()

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb63bd6555ca7554ca145527ab8b1f05, type: 3}
+  m_Name: KnightClass
+  m_EditorClassIdentifier: 
+  className: Paladin
+  characterModel: {fileID: 2717591372011546379, guid: 29c05f6eebc9b3f4296cb47018b1f56c, type: 3}
+  classInfo:
+  - Offensive and Defensive gameplay.
+  - Use mainly Strength and also Intelligence to enhances his damages.
+  - 'Special Capacity : Auras'
+  - 'Difficulty : Easy'
+  health: 10
+  mana: 5
+  strength: 4
+  intelligence: 1
+  agility: 2
+  allSpells:
+  - minimumLevel: 3
+    spell: {fileID: 11400000, guid: 4fbc9ed8fefbcfe43868edb02a60d529, type: 2}

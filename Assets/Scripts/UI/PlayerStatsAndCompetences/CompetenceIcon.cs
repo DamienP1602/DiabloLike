@@ -8,11 +8,11 @@ public class CompetenceIcon : MonoBehaviour
 {
     [SerializeField] Spell spell;
     [SerializeField] int minimumLevel;
-    [SerializeField] Button button;
+    [SerializeField] CustomButton button;
     [SerializeField] RawImage icon;
     [SerializeField] bool isLearned;
 
-    public Button Button => button;
+    public CustomButton Button => button;
     public int MinimumLevel => minimumLevel;
 
     // Start is called before the first frame update
@@ -29,7 +29,7 @@ public class CompetenceIcon : MonoBehaviour
 
     public void SetInteractable(bool _value)
     {
-        button.interactable = _value;
+        button.SetInteractable(_value);
         icon.color = _value ? new Color(1.0f,1.0f,1.0f) : new Color(0.3f, 0.3f,0.3f);
     }
 

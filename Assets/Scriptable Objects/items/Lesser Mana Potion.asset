@@ -17,7 +17,7 @@ MonoBehaviour:
   itemName: Lesser Mana Potion
   itemPrice: 6
   ratity:
-    rarity: 4
+    rarity: 0
   type: 0
   canBeStacked: 1
   manaRestaured: 10

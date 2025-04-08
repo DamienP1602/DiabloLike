@@ -9,35 +9,30 @@ using UnityEngine.UI;
 public class InventoryItem : MonoBehaviour
 {
     public event Action<InventoryItem> OnItemClick;
+    public event Action<InventoryItem> OnItemExecute;
 
     [SerializeField] RawImage rarityBackground;
     [SerializeField] RawImage itemSprite;
-    [SerializeField] Button button;
+    [SerializeField] CustomButton button;
     [SerializeField] TMP_Text itemAmountText;
 
     [SerializeField] ItemStored slot;
 
-    public ItemStored Item => slot;
-    public Button Button => button;
+    public ItemStored ItemData=> slot;
+    public CustomButton Button => button;
 
     public bool IsAlreadyItemOnSlot => slot != null;
 
     protected virtual void Awake()
     {
-        RawImage[] _images = GetComponentsInChildren<RawImage>();
-        rarityBackground = _images[0];
-        itemSprite = _images[1];
-
-        button = GetComponentInChildren<Button>();
-        itemAmountText = GetComponentInChildren<TMP_Text>();
-
-        button.onClick.AddListener(() => OnItemClick?.Invoke(this));
+        button.AddLeftClickAction(() => OnItemClick?.Invoke(this));
+        button.AddRightClickAction(() => OnItemExecute?.Invoke(this));
         itemSprite.color = Color.clear;
         itemAmountText.text = "";
         slot = null;
     }
 
-    public virtual bool SetItem(ItemStored _data)
+    public virtual void SetItem(ItemStored _data)
     {
         slot = _data;
 
@@ -47,8 +42,6 @@ public class InventoryItem : MonoBehaviour
         itemSprite.texture = _data.item.icon;
 
         itemAmountText.text = _data.amount == 1 ? "" : _data.amount.ToString();
-
-        return true;
     }
 
     public virtual void ClearItem()
@@ -77,6 +70,6 @@ public class InventoryItem : MonoBehaviour
     public void SetSelectionStatus(bool _value)
     {
         itemSprite.raycastTarget = _value;
-        button.targetGraphic.raycastTarget = _value;
+        button.SetInteractable(_value);
     }
 }

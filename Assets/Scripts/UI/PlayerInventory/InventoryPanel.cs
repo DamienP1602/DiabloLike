@@ -5,14 +5,23 @@ using UnityEngine;
 
 public class InventoryPanel : MonoBehaviour
 {
-    public event Action<int,ItemStored> OnEquipConsumable;
+    public event Action<int,ItemStored,ItemStored> OnEquipConsumable;
     public event Action<ItemStored,ItemStored> OnEquipEquipment;
 
-    [SerializeField] List<ItemSlot> allSlots;
+
+    [Header("Equipments")]
+    [SerializeField] EquipmentSlot weaponSlot;
+
+    [Header("Consumables")]
+    [SerializeField] EquipmentSlot consumableOneSlot;
+    [SerializeField] EquipmentSlot consumableTwoSlot;
+
     [SerializeField] List<EquipmentSlot> equipSlots;
 
-    Inventory playerInventory;
+    [SerializeField] List<ItemSlot> allSlots;
 
+    Inventory playerInventory;
+    
     public InventoryItem currentSelectedItem;
 
     private void Awake()
@@ -21,13 +30,15 @@ public class InventoryPanel : MonoBehaviour
         foreach (ItemSlot _slot in allSlots)
         {
             _slot.OnItemClick += SelectItem;
+            _slot.OnItemExecute += ExecuteItem;
         }
 
         equipSlots = GetComponentsInChildren<EquipmentSlot>(true).ToList();
         foreach (EquipmentSlot _slot in equipSlots)
         {
-            _slot.OnItemClick += EquipItem;
-            _slot.OnItemClick += (_item) => InitInventoryPanel();
+            _slot.OnItemClick += InteractWithItem;
+            _slot.OnItemClick += (_slot) => InitInventoryPanel();
+            _slot.ClearItem();
         }
     }
 
@@ -46,26 +57,11 @@ public class InventoryPanel : MonoBehaviour
 
     public void SetInventory(Inventory _inventory) => playerInventory = _inventory; 
 
-    public int GetConsumableSlotIndex(ItemStored _item)
-    {
-        int _index = 1;
-        foreach (EquipmentSlot _slot in equipSlots)
-        {
-            if (_slot.Type == ItemType.CONSOMMABLE)
-            {
-                if (_slot.Item == _item)
-                    return _index;
-                _index++;
-            }                
-        }
-        return -1;
-    }
-
     public EquipmentSlot GetEquipmentSlotFromData(ItemStored _data)
     {
         foreach (EquipmentSlot _slot in equipSlots)
         {
-            if (_slot.Item == _data)
+            if (_slot.ItemData == _data)
                 return _slot;
         }
         return null;
@@ -89,16 +85,24 @@ public class InventoryPanel : MonoBehaviour
 
         List<ItemStored> _items = playerInventory.AllItems;
         int _inventoryCapacity = _items.Count;
+        int _slotCapacity = allSlots.Count;
 
-        for (int _i = 0; _i < _inventoryCapacity; _i++)
+        for (int _i = 0; _i < _slotCapacity; _i++)
         {
             ItemSlot _slot = allSlots[_i];
-            if (!_slot) continue;
-
-            ItemStored _item = _items[_i];
-            if (_item == null) continue;
-
-            _slot.SetItem(_item); 
+            if (_slot)
+            {
+                if (_inventoryCapacity > _i)
+                {
+                    ItemStored _item = _items[_i];
+                    if (_item != null)
+                    {
+                        _slot.SetItem(_item);
+                        continue;
+                    }
+                }
+            }
+            _slot.SetSelectionStatus(false);
         }
     }
 
@@ -114,8 +118,7 @@ public class InventoryPanel : MonoBehaviour
 
     public void SelectItem(InventoryItem _selectedItem)
     {
-        if (_selectedItem == null)
-            return;
+        if (_selectedItem == null) return;
 
         if (currentSelectedItem)
         {
@@ -127,37 +130,54 @@ public class InventoryPanel : MonoBehaviour
         currentSelectedItem.SetSelectionStatus(false);
     }
 
-    public void EquipItem(InventoryItem _slot)
+    public void ExecuteItem(InventoryItem _selectedItem)
     {
-        // No item is selected
-        if (!currentSelectedItem) return;
+        if (_selectedItem == null) return;
 
+        _selectedItem.ItemData.item.Execute();
+        playerInventory.RemoveItem(_selectedItem.ItemData.item);
+        InitInventoryPanel();
+    }
+
+    public void InteractWithItem(InventoryItem _slot)
+    {
         // Verification if you're clicking on a EquipmentSlot => should be everytime
         EquipmentSlot _equipmentSlot = _slot as EquipmentSlot;
         if (!_equipmentSlot) return;
 
         // Get a potential item => if there's one, inventory component will switch them
-        ItemStored _potentialItemStored = _equipmentSlot.Item;
+        ItemStored _potentialItemStored = _equipmentSlot.ItemData;
+
+        // No item is selected => try to select it
+        if (!currentSelectedItem)
+        {
+            //If there's no item stored in the current slot => fail try and return
+            if (_slot.ItemData == null) return;
+
+            SelectItem(_slot);
+            _equipmentSlot.SetSelectionStatus(true);
+            _equipmentSlot.ClearItem();
+
+            InvokeItemEventOnType(_equipmentSlot, _potentialItemStored);
+            return;
+        }
 
         // If you want to equip an item with the wrong type for the slot => return 
-        if (!_equipmentSlot.SetItem(currentSelectedItem.Item)) return;
+        if (!_equipmentSlot.SetItem(currentSelectedItem.ItemData)) return;
 
         currentSelectedItem.ClearItem();
         currentSelectedItem = null;
 
-        switch (_equipmentSlot.Type)
-        {
-            case ItemType.CONSOMMABLE:
-                OnEquipConsumable?.Invoke(GetConsumableSlotIndex(_slot.Item), _slot.Item);
-                break;
-            case ItemType.WEAPON:
-                OnEquipEquipment?.Invoke(_slot.Item, _potentialItemStored);
-                break;
-            case ItemType.ARMOR:
-
-                break;
-            default:
-                break;
-        }
+        InvokeItemEventOnType(_equipmentSlot,_potentialItemStored);
     }
+
+    void InvokeItemEventOnType(EquipmentSlot _equipmentSlot, ItemStored _potentialItemStored)
+    {
+        if (_equipmentSlot.Type == ItemType.CONSOMMABLE || _equipmentSlot.Type == ItemType.CONSOMMABLE)
+            OnEquipConsumable?.Invoke((int)_equipmentSlot.Type, _equipmentSlot.ItemData, _potentialItemStored);
+
+        if (_equipmentSlot.Type == ItemType.WEAPON)
+            OnEquipEquipment?.Invoke(_equipmentSlot.ItemData, _potentialItemStored);
+    }
+
 }

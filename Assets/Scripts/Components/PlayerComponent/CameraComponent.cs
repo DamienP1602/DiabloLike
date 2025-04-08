@@ -20,7 +20,7 @@ public class CameraComponent : NetworkBehaviour
 
     public void CreateCamera()
     {
-        renderCamera = Instantiate(cameraRef);
+        renderCamera = Instantiate(cameraRef, gameObject.transform.position, Quaternion.identity);
         renderCamera.transform.eulerAngles = new Vector3(40.0f, -45.0f, 0.0f);
 
         offset = new Vector3(5.0f, 5.0f, -5.0f);

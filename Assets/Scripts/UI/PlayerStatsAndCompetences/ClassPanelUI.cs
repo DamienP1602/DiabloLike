@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class ClassPanelUI : MonoBehaviour
 {
-    [SerializeField] Button showStatsButton;
-    [SerializeField] Button showCompetencesButton;
+    [SerializeField] CustomButton showStatsButton;
+    [SerializeField] CustomButton showCompetencesButton;
 
     [SerializeField] StatsPanel statsPanel;
     [SerializeField] CompetencesPanel competencesPanel;
@@ -16,11 +16,11 @@ public class ClassPanelUI : MonoBehaviour
 
     void Awake()
     {
-        showStatsButton.onClick.AddListener(() => SetStatsPanelStatus(true));
-        showStatsButton.onClick.AddListener(() => SetCompetencesPanelStatus(false));
+        showStatsButton.AddLeftClickAction(() => SetStatsPanelStatus(true));
+        showStatsButton.AddLeftClickAction(() => SetCompetencesPanelStatus(false));
 
-        showCompetencesButton.onClick.AddListener(() => SetStatsPanelStatus(false));
-        showCompetencesButton.onClick.AddListener(() => SetCompetencesPanelStatus(true));
+        showCompetencesButton.AddLeftClickAction (() => SetStatsPanelStatus(false));
+        showCompetencesButton.AddLeftClickAction(() => SetCompetencesPanelStatus(true));
     }
 
     private void SetStatsPanelStatus(bool _value)
