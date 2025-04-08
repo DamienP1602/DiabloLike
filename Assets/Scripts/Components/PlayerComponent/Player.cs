@@ -92,7 +92,10 @@ public class Player : BaseCharacter
         statsComponent.OnLevelUp += hud.Overlay.ClassPanel.CompetencesPanel.SetLevel;
 
         hud.Overlay.InventoryPanel.OnEquipConsumable += inventory.SetConsumable;
+        hud.Overlay.InventoryPanel.OnDesequipConsumable += (_type, _nullItem, _currentConsumable) => inventory.RemoveConsumable(_type, _currentConsumable);
+
         hud.Overlay.InventoryPanel.OnEquipEquipment += inventory.EquipItem;
+        hud.Overlay.InventoryPanel.OnDesequipEquipment += (_type, _nullItem, _currentItem) => inventory.DesequipItem(_type,_currentItem);
 
         hud.Overlay.ClassPanel.CompetencesPanel.OnSpellLearn += spellComp.AddSpell;
         hud.Overlay.ClassPanel.CompetencesPanel.OnSpellDesequip += spellComp.RemoveSpell;

@@ -34,8 +34,11 @@ public class PlayerOverlay : MonoBehaviour
 
     public void InitEvent()
     {
-        inventoryPanel.OnEquipConsumable += (_index, _newData, _olData) =>  SetConsumable(_index,_newData);
-        inventoryPanel.OnEquipEquipment += (_item1, _item2) => classPanel.StatsPanel.UpdateData();
+        inventoryPanel.OnEquipConsumable += (_type, _item1, _item2) => SetConsumable(_type, _item1);
+        inventoryPanel.OnDesequipConsumable += (_type, _item1, _item2) => ResetConsumable(_type);
+
+        inventoryPanel.OnEquipEquipment += (_type,_item1, _item2) => classPanel.StatsPanel.UpdateData();
+        inventoryPanel.OnDesequipEquipment += (_type,_item1, _item2) => classPanel.StatsPanel.UpdateData();
 
         classPanel.CompetencesPanel.OnSpellLearn += (_spell) =>  skillsPanel.LoadSkillImage();
         classPanel.CompetencesPanel.OnSpellDesequip += (_spell) =>  skillsPanel.LoadSkillImage();
@@ -77,9 +80,15 @@ public class PlayerOverlay : MonoBehaviour
         }
     }
 
-    public void SetConsumable(int _index,ItemStored _data)
+    public void SetConsumable(EquipmentType _type,ItemStored _data)
     {
-        ConsumableSlot _consumable = consumablePanel.GetFromIndex(_index);
+        ConsumableSlot _consumable = consumablePanel.GetFromIndex((int)_type);
         _consumable.SetItem(_data);
+    }
+
+    public void ResetConsumable(EquipmentType _type)
+    {
+        ConsumableSlot _consumable = consumablePanel.GetFromIndex((int)_type);
+        _consumable.ResetItem();
     }
 }

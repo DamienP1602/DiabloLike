@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,16 +35,16 @@ public class Inventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
-    
-    public void AddItem(BaseItem _item)
+
+    public void AddItem(BaseItem _item, int _amout = 1)
     {
         if (allItems.Count >= inventorySize)
             return;
@@ -55,15 +56,19 @@ public class Inventory : MonoBehaviour
             {
                 if (_item == _itemStored.item)
                 {
-                    _itemStored.amount++;
+                    _itemStored.amount += _amout;
                     return;
                 }
             }
         }
 
+
         // if not Contains
         _item.InitOwner(GetComponent<Player>());
-        allItems.Add(new ItemStored(_item));
+        ItemStored _newItem = new ItemStored(_item);
+
+        allItems.Add(_newItem);
+        _newItem.amount = _amout;
     }
 
     public void RemoveItem(BaseItem _item)
@@ -83,7 +88,7 @@ public class Inventory : MonoBehaviour
                     return;
                 }
             }
-        }        
+        }
     }
 
     void RemoveConsumable(ItemStored _consumable)
@@ -114,49 +119,41 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    // TODO => Pas ouf à refaire
-    public void SetConsumable(int _index,ItemStored _consumable, ItemStored _oldData = null)
+    public void SetConsumable(EquipmentType _type, ItemStored _consumable, ItemStored _oldData = null)
     {
-        if (_consumable == null)
-        {
-            AddItem(_oldData.item);
-
-            if (_index == 1)
-                consumableSlotOne.item = null;
-            if (_index == 2)
-                consumableSlotTwo.item = null;
-
-            return;
-        }
-
-        if (_index == 1)
+        if (_type == EquipmentType.CONSUMABLE_ONE)
         {
             if (consumableSlotOne.item == null)
-            {
                 consumableSlotOne = _consumable;
-            }
             else
             {
-                BaseItem _temp = _consumable.item;
                 consumableSlotOne = _consumable;
-                AddItem(_temp);
+                AddItem(_oldData.item, _oldData.amount);
             }
-            DestroyItem(_consumable.item, false);
+
         }
-        else if (_index == 2)
+        else if (_type == EquipmentType.CONSUMABLE_TWO)
         {
             if (consumableSlotTwo.item == null)
-            {
                 consumableSlotTwo = _consumable;
-            }
             else
             {
-                BaseItem _temp = _consumable.item;
                 consumableSlotTwo = _consumable;
-                AddItem(_temp);
+                AddItem(_oldData.item, _oldData.amount);
             }
-            DestroyItem(_consumable.item, false);
         }
+        DestroyItem(_consumable.item, false);
+    }
+
+    public void RemoveConsumable(EquipmentType _type, ItemStored _currentConsumable)
+    {
+        AddItem(_currentConsumable.item, _currentConsumable.amount);
+
+        if (_type == EquipmentType.CONSUMABLE_ONE)
+            consumableSlotOne.item = null;
+
+        if (_type == EquipmentType.CONSUMABLE_TWO)
+            consumableSlotTwo.item = null;
     }
 
     public void UseConsumable(InputAction.CallbackContext _context)
@@ -176,37 +173,37 @@ public class Inventory : MonoBehaviour
         OnConsumableUse?.Invoke(_itemToUse);
     }
 
-    public void EquipItem(ItemStored _data, ItemStored _oldData = null)
+    public void EquipItem(EquipmentType _type, ItemStored _data, ItemStored _oldData = null)
     {
         StatsComponent _ownerStats = GetComponent<StatsComponent>();
         if (!_ownerStats) return;
 
-        // If there's data => equip item
-        if (_data != null)
-        {
-            SO_Weapon _weapon = _data.item as SO_Weapon;
-            if (!_weapon) return;
+        SO_Weapon _weapon = _data.item as SO_Weapon;
+        if (!_weapon) return;
 
-            if (_oldData != null)
-            {
-                SO_Weapon _oldWeapon = _oldData.item as SO_Weapon;
-                if (!_oldWeapon) return;
-
-                _oldWeapon.Unequip(_ownerStats);
-                AddItem(_oldWeapon);
-            }
-
-            _weapon.Equip(_ownerStats);
-            DestroyItem(_data.item, false);
-        }
-        // _data = null => remove old item for select item in UI
-        else
+        if (_oldData != null)
         {
             SO_Weapon _oldWeapon = _oldData.item as SO_Weapon;
             if (!_oldWeapon) return;
 
             _oldWeapon.Unequip(_ownerStats);
             AddItem(_oldWeapon);
-        }        
+        }
+
+        _weapon.Equip(_ownerStats);
+        DestroyItem(_data.item, false);
+    }
+
+    public void DesequipItem(EquipmentType _type, ItemStored _currentItem)
+    {
+        StatsComponent _ownerStats = GetComponent<StatsComponent>();
+        if (!_ownerStats) return;
+
+        SO_Weapon _oldWeapon = _currentItem.item as SO_Weapon;
+        if (!_oldWeapon) return;
+
+        _oldWeapon.Unequip(_ownerStats);
+        AddItem(_oldWeapon);
+
     }
 }

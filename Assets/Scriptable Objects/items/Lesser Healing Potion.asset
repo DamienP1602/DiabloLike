@@ -18,6 +18,6 @@ MonoBehaviour:
   itemPrice: 5
   ratity:
     rarity: 0
-  type: 0
+  type: 1
   canBeStacked: 1
   lifeRestaured: 5

@@ -18,7 +18,7 @@ MonoBehaviour:
   itemPrice: 15
   ratity:
     rarity: 0
-  type: 1
+  type: 2
   canBeStacked: 0
   damage: 3
   strength: 1
