@@ -10,6 +10,8 @@ public class Item : MonoBehaviour
 
     private void Start()
     {
+        ItemManager.Instance.AddItem(this);
+
         pointLight = GetComponent<Light>();
         pointLight.color = itemData.ratity.GetColorFromRarity();
     }
@@ -34,6 +36,7 @@ public class Item : MonoBehaviour
                 return;
             }
             _playerInventory.AddItem(itemData);
+            ItemManager.Instance.RemoveItem(this);
             Destroy(gameObject);
         }
     }

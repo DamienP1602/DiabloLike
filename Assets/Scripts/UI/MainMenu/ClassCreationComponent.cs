@@ -22,12 +22,13 @@ public class ClassCreationComponent : MonoBehaviour
 
     [Header("Prefabs")]
     [SerializeField] CustomButton ButtonClassRef;
-    [SerializeField] List<SO_CharacterClass> allClasses;
+    public List<SO_CharacterClass> allClasses;
 
     CharacterPrevisualitationComponent characterMesh;
     SO_CharacterClass selectedClass;
 
     public CustomButton ReturnButton => returnButton;
+    public CustomButton CreateCharacterButton => createCharacterButton;
 
     private void Awake()
     {
@@ -81,7 +82,7 @@ public class ClassCreationComponent : MonoBehaviour
             ErrorText.text = "You need to enter a Name";
             return;
         }
-        //TODO => check if any character already has the same name
-        //Create Character
+
+        SaveSystem.SaveCharacter(selectedClass, characterNameInputField.text);
     }
 }

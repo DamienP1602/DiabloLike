@@ -8,13 +8,18 @@ using UnityEngine;
 [RequireComponent (typeof(AttackComponent))]
 public abstract class BaseCharacter : NetworkBehaviour
 {
-    [SerializeField] protected string characterName = "";
+    [SerializeField] protected string characterName;
     public string CharacterName => characterName;
 
-    protected StatsComponent statsComponent = null;
-    protected AnimationComponent animationComponent = null;
-    protected MovementComponent movementComponent = null;
-    protected AttackComponent attackComponent = null;
+    protected StatsComponent statsComponent;
+    protected AnimationComponent animationComponent;
+    protected MovementComponent movementComponent;
+    protected AttackComponent attackComponent;
+
+    public StatsComponent StatsComponent => statsComponent;
+    public AnimationComponent AnimationComponent => animationComponent;
+    public MovementComponent MovementComponent => movementComponent;
+    public AttackComponent AttackComponent => attackComponent;
 
     protected virtual void Start()
     {

@@ -17,6 +17,7 @@ public struct HoverEvent
     }
 }
 
+[RequireComponent(typeof(RawImage))]
 public class CustomButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     event Action leftClickEvent;
@@ -25,6 +26,7 @@ public class CustomButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     event Action onExitEvent;
     List<HoverEvent> allHoverEvents = new List<HoverEvent>();
     bool isHovered;
+    bool isClicked;
     float hoveredTime;
 
     [SerializeField] bool interactable = true;
@@ -34,6 +36,30 @@ public class CustomButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     [SerializeField] Color pressedColor = new Color(0.5f, 0.5f, 0.5f);
     [SerializeField] Color disabledColor = new Color(0.3f, 0.3f, 0.3f);
 
+    private void Awake()
+    {
+        graphic = GetComponent<RawImage>();
+    }
+
+    private void OnEnable()
+    {
+        graphic.color = interactable ? baseColor : disabledColor;
+    }
+
+    protected virtual void Update()
+    {
+        if (!interactable) return;
+
+        if (isHovered)
+        {
+            if (!isClicked)
+                graphic.color = hoverColor;
+
+            hoveredTime += Time.deltaTime;
+
+            InvokeHoverEvent();
+        }
+    }
 
     public void AddLeftClickAction(Action _action) => leftClickEvent += _action;
     public void AddRightClickAction(Action _action) => rightClickEvent += _action;
@@ -49,27 +75,9 @@ public class CustomButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     void InvokeHoverEvent()
     {
         foreach (HoverEvent _data in allHoverEvents)
-        {   
+        {
             if (_data.requiredTime <= hoveredTime)
                 _data.hoverEvent?.Invoke();
-        }
-    }
-
-    private void OnEnable()
-    {
-        graphic.color = interactable ? baseColor : disabledColor;
-    }
-
-    protected virtual void Update()
-    {
-        if (!interactable)
-
-        if (isHovered)
-        {
-            graphic.color = hoverColor;
-            hoveredTime += Time.deltaTime;
-
-            InvokeHoverEvent();
         }
     }
 
@@ -85,6 +93,8 @@ public class CustomButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         {
             InvokeRightClick();
         }
+        isClicked = true;
+        Invoke(nameof(StopClicked), 0.1f);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -113,5 +123,10 @@ public class CustomButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     {
         interactable = _value;
         graphic.color = _value ? baseColor : disabledColor;
+    }
+
+    void StopClicked()
+    {
+        isClicked = false;
     }
 }

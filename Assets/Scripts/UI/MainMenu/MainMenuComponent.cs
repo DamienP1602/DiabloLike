@@ -11,12 +11,18 @@ public class MainMenuComponent : MonoBehaviour
     [SerializeField] MainScreenComponent mainScreen;
     [SerializeField] CharacterSelectionComponent characterSelection;
     [SerializeField] ClassCreationComponent classCreation;
+    [SerializeField] List<SO_CharacterClass> allClasses;
 
     private void Awake()
     {
+        SaveSystem.InitSaveSystem();
+
         mainScreen = GetComponentInChildren<MainScreenComponent>(true);
         characterSelection = GetComponentInChildren<CharacterSelectionComponent>(true);
         classCreation = GetComponentInChildren<ClassCreationComponent>(true);
+
+        characterSelection.allClasses = allClasses;
+        classCreation.allClasses = allClasses;
     }
 
     private void Start()
@@ -30,6 +36,7 @@ public class MainMenuComponent : MonoBehaviour
         {
             mainScreen.gameObject.SetActive(false);
             characterSelection.gameObject.SetActive(true);
+            characterSelection.CharacterPanel.UpdateCharacterOnSaveData(characterSelection.SelectCharacter);
         });
         characterSelection.CreateCharacterButton.AddLeftClickAction(() =>
         {
@@ -41,6 +48,13 @@ public class MainMenuComponent : MonoBehaviour
             classCreation.gameObject.SetActive(false);
             classCreation.ResetValues();
             characterSelection.gameObject.SetActive(true);
+        });
+        classCreation.CreateCharacterButton.AddLeftClickAction(() =>
+        {
+            classCreation.gameObject.SetActive(false);
+            classCreation.ResetValues();
+            characterSelection.gameObject.SetActive(true);
+            characterSelection.CharacterPanel.UpdateCharacterOnSaveData(characterSelection.SelectCharacter);
         });
     }
 }

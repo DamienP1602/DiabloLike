@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -8,8 +9,15 @@ using UnityEngine.UI;
 
 public class CharacterSelectionComponent : MonoBehaviour
 {
+    [Header("All Classes To Draw")]
+    public Action OnCharacterSelection;
+    CharacterPrevisualitationComponent characterMesh;
+    CharacterSaveData characterSelected;
+    SO_CharacterClass classSelected;
+    public List<SO_CharacterClass> allClasses;
+
     [Header("Character Creation Side")]
-    [SerializeField] GameObject charactersPanel; // => TODO Behaviour
+    [SerializeField] CharacterPanelComponent charactersPanel;
     [SerializeField] CustomButton createCharacterButton;
 
     [Header("Play Buttons")]
@@ -29,6 +37,7 @@ public class CharacterSelectionComponent : MonoBehaviour
     [SerializeField] CustomButton settingsButton;
 
     public CustomButton CreateCharacterButton => createCharacterButton;
+    public CharacterPanelComponent CharacterPanel => charactersPanel;
 
     void Start()
     {
@@ -77,7 +86,7 @@ public class CharacterSelectionComponent : MonoBehaviour
         LoadLevel();
         // Load Selected Character
         GameManager.Instance.SetMultiplayer(false);
-        GameManager.Instance.CreatePlayer();
+        GameManager.Instance.CreatePlayer(characterSelected, classSelected);
     }
 
     void CreateSession()
@@ -94,5 +103,21 @@ public class CharacterSelectionComponent : MonoBehaviour
         // Load Selected Character
         NetworkManager.Singleton.StartClient();
         GameManager.Instance.SetMultiplayer(true);
+    }
+
+    public void SelectCharacter(CharacterSaveData _character)
+    {
+        if (characterMesh)
+            Destroy(characterMesh.gameObject);
+
+        foreach (SO_CharacterClass _data in allClasses)
+        {
+            if (_data.className == _character.className)
+            {
+                characterMesh = Instantiate(_data.characterModel, transform);
+                characterSelected = _character;
+                classSelected = _data;
+            }
+        }
     }
 }

@@ -50,10 +50,10 @@ public class GameManager : Singleton<GameManager>
         allPlayers.Add(new PlayerGameInfo(allPlayers.Count,_player));
     }
     
-    public void CreatePlayer()
+    public void CreatePlayer(CharacterSaveData _data, SO_CharacterClass _classData)
     {
         Player _player = Instantiate(playerPrefab);
-        _player.InitPlayer(isMultiplayer);
+        _player.InitPlayer(isMultiplayer,_data,_classData);
         AddPlayer(_player);
     }
 }

@@ -6,21 +6,23 @@ using UnityEngine.UI;
 
 public class CharacterInfoComponent : MonoBehaviour
 {
-    [SerializeField] Button backgroundButton;
+    [SerializeField] CustomButton backgroundButton;
     [SerializeField] RawImage characterIcon;
     [SerializeField] TMP_Text levelText;
     [SerializeField] TMP_Text nameText;
     [SerializeField] TMP_Text classText;
 
-    // Start is called before the first frame update
-    void Start()
+    public CustomButton Button => backgroundButton;
+
+    private void Awake()
     {
-        
+        characterIcon.raycastTarget = false;
+        levelText.raycastTarget = false;
+        nameText.raycastTarget = false;
+        classText.raycastTarget = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public void SetLevelText(string _text) => levelText.text = _text;
+    public void SetNameText(string _text) => nameText.text = _text;
+    public void SetClassText(string _text) => classText.text = _text;
 }

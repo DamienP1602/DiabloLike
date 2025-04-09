@@ -19,18 +19,20 @@ public class ItemStored
 
 public class Inventory : MonoBehaviour
 {
-    public event Action<ItemStored> OnConsumableUse = null;
+    public event Action<ItemStored> OnConsumableUse;
 
     int inventorySize = 32;
-    [SerializeField] List<ItemStored> allItems = new();
+    [SerializeField] List<ItemStored> allItems = new List<ItemStored>();
+    [SerializeField] List<ItemStored> itemEquiped = new List<ItemStored>();
 
-    [SerializeField] ItemStored consumableSlotOne = null;
-    [SerializeField] ItemStored consumableSlotTwo = null;
+    [SerializeField] ItemStored consumableSlotOne;
+    [SerializeField] ItemStored consumableSlotTwo;
 
-    int gold = 0;
+    int gold;
 
     public int Gold => gold;
     public List<ItemStored> AllItems => allItems;
+    public List<ItemStored> AllItemsEquiped => itemEquiped;
 
     // Start is called before the first frame update
     void Start()
@@ -143,6 +145,7 @@ public class Inventory : MonoBehaviour
             }
         }
         DestroyItem(_consumable.item, false);
+        itemEquiped.Add(_consumable);
     }
 
     public void RemoveConsumable(EquipmentType _type, ItemStored _currentConsumable)
@@ -154,6 +157,8 @@ public class Inventory : MonoBehaviour
 
         if (_type == EquipmentType.CONSUMABLE_TWO)
             consumableSlotTwo.item = null;
+
+        itemEquiped.Remove(_currentConsumable);
     }
 
     public void UseConsumable(InputAction.CallbackContext _context)
@@ -188,10 +193,13 @@ public class Inventory : MonoBehaviour
 
             _oldWeapon.Unequip(_ownerStats);
             AddItem(_oldWeapon);
+            itemEquiped.Remove(_oldData);
         }
 
         _weapon.Equip(_ownerStats);
         DestroyItem(_data.item, false);
+
+        itemEquiped.Add(_data);
     }
 
     public void DesequipItem(EquipmentType _type, ItemStored _currentItem)
@@ -204,6 +212,36 @@ public class Inventory : MonoBehaviour
 
         _oldWeapon.Unequip(_ownerStats);
         AddItem(_oldWeapon);
+        itemEquiped.Remove(_currentItem);
+    }
 
+    public void InitFromData(CharacterSaveData _data)
+    {
+        List<BaseItem> _allItems = ItemManager.Instance.AllItems;
+
+        List<SaveItemData> _savedItems = _data.itemIDInventory;
+        foreach (SaveItemData _save in _savedItems)
+        {
+            foreach (BaseItem _item in _allItems)
+            {
+                if (_save.ID == _item.ID)
+                    AddItem(_item, _save.amount);
+            }
+        }
+
+        List<SaveItemData> _savedEquipedItems = _data.itemIDEquiped;
+        foreach (SaveItemData _save in _savedEquipedItems)
+        {
+            foreach (BaseItem _item in _allItems)
+            {
+                if (_save.ID == _item.ID)
+                {
+                    ItemStored _newItem = new ItemStored(_item);
+                    _newItem.amount = _save.amount;
+
+                    itemEquiped.Add(new ItemStored(_item));
+                }
+            }
+        }
     }
 }

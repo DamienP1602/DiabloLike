@@ -15,6 +15,7 @@ public class SpellComponent : MonoBehaviour
 
     [Header("Component")]
     [SerializeField] List<Spell> spells;
+    [SerializeField] List<Spell> passifsSpells;
     [SerializeField] Transform spellSocket;
     AnimationComponent animRef;
 
@@ -22,6 +23,8 @@ public class SpellComponent : MonoBehaviour
     Spell currentSpell;
 
     public List<Spell> Spells => spells;
+    public List<Spell> PassifsSpells => passifsSpells;
+
 
     // Start is called before the first frame update
     void Start()
@@ -127,9 +130,32 @@ public class SpellComponent : MonoBehaviour
                 Gizmos.DrawWireSphere(transform.position,_standingSpell.range);
 
             }
-            
-
         }
     }
 
+    public void InitFromData(CharacterSaveData _data)
+    {
+        List<Spell> _allSpells = SpellManager.Instance.AllSpells;
+        List<int> _savedIDSpells = _data.spellsIDEquiped;
+
+        foreach (int _spellID in _savedIDSpells)
+        {
+            foreach (Spell _spell in _allSpells)
+            {
+                if (_spellID == _spell.ID)
+                    spells.Add(_spell);
+            }
+        }
+
+        List<int> _savedIDPassifs = _data.passifIDEquiped;
+
+        foreach (int _passifID in _savedIDPassifs)
+        {
+            foreach (Spell _spell in _allSpells)
+            {
+                if (_passifID == _spell.ID)
+                    spells.Add(_spell);
+            }
+        }
+    }
 }

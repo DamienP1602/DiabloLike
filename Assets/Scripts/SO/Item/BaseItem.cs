@@ -10,14 +10,15 @@ public enum ItemType
 
 public abstract class BaseItem : ScriptableObject
 {
-    public Player owner = null;
-    public Texture2D icon = null;
-    public string itemName = "";
-    public int itemPrice = 0;
+    public int ID;
+    public Player owner;
+    public Texture2D icon;
+    public string itemName ;
+    public int itemPrice;
     public ItemRarity ratity;
     public ItemType type;
 
-    public bool canBeStacked = true;
+    public bool canBeStacked;
 
     public void InitOwner(Player _owner) => owner = _owner;
 

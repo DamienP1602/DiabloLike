@@ -13,6 +13,7 @@ public struct SpellCharacterData
 [CreateAssetMenu(fileName = "Empty Class Data", menuName = "Character Class/Create Class Data")]
 public class SO_CharacterClass : ScriptableObject
 {
+    public int classID;
     public string className;
     public CharacterPrevisualitationComponent characterModel;
     public List<string> classInfo;

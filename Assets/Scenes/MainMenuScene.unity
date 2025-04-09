@@ -315,7 +315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &108532245
 RectTransform:
   m_ObjectHideFlags: 0
@@ -324,7 +324,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108532244}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -400}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -333,8 +333,8 @@ RectTransform:
   - {fileID: 1577759634}
   m_Father: {fileID: 1250512734}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.4, y: 0.3}
-  m_AnchorMax: {x: 0.6, y: 0.5}
+  m_AnchorMin: {x: 0.4, y: 0.4}
+  m_AnchorMax: {x: 0.6, y: 0.6}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -414,6 +414,7 @@ GameObject:
   - component: {fileID: 134407451}
   - component: {fileID: 134407450}
   - component: {fileID: 134407452}
+  - component: {fileID: 134407453}
   m_Layer: 5
   m_Name: CharacterPanel
   m_TagString: Untagged
@@ -438,7 +439,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 240.00003, y: -341}
-  m_SizeDelta: {x: 480, y: 648}
+  m_SizeDelta: {x: 480.00006, y: 648}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &134407450
 MonoBehaviour:
@@ -500,10 +501,24 @@ MonoBehaviour:
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
+  m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &134407453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134407448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64dc8963972e1324db59fa7bf411010f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 4492084345858840258, guid: 6e7fe4e7f5aaa7d438951c6027e219a0, type: 3}
+  allCharacter: []
 --- !u!1 &264550044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1283,7 +1298,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5201800190323123251, guid: 4067614d226d69d40a6548b9e48d7a9a, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 200
+      value: 480.00006
       objectReference: {fileID: 0}
     - target: {fileID: 5201800190323123251, guid: 4067614d226d69d40a6548b9e48d7a9a, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1906,7 +1921,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 124f9805e45320a46b298227c4c2b51c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  charactersPanel: {fileID: 1590588518}
+  allClasses: []
+  charactersPanel: {fileID: 134407453}
   createCharacterButton: {fileID: 930131922}
   playButton: {fileID: 1953877157}
   playOptionPanel: {fileID: 108532244}
@@ -2489,7 +2505,7 @@ MonoBehaviour:
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
@@ -2869,6 +2885,8 @@ MonoBehaviour:
   mainScreen: {fileID: 0}
   characterSelection: {fileID: 0}
   classCreation: {fileID: 0}
+  allClasses:
+  - {fileID: 11400000, guid: 20c69b10516402440b2b0b57b70f8923, type: 2}
 --- !u!114 &1678872948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3494,7 +3512,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5201800190323123251, guid: 4067614d226d69d40a6548b9e48d7a9a, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.15
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5201800190323123251, guid: 4067614d226d69d40a6548b9e48d7a9a, type: 3}
       propertyPath: m_AnchorMin.x
@@ -3502,7 +3520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5201800190323123251, guid: 4067614d226d69d40a6548b9e48d7a9a, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.15
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5201800190323123251, guid: 4067614d226d69d40a6548b9e48d7a9a, type: 3}
       propertyPath: m_SizeDelta.x

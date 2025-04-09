@@ -127,4 +127,21 @@ public class StatsComponent : MonoBehaviour
         }
         OnGainExperience?.Invoke(experience.Value,experienceCap.Value);
     }
+
+    public void InitFromData(CharacterSaveData _data)
+    {
+        level.SetValue(_data.level);
+        experience.SetValue(_data.experience);
+        statPoints.SetValue(_data.statPoints);
+        maxHealth.SetValue(_data.health);
+        currentHealth.SetValue(_data.health);
+        maxMana.SetValue(_data.mana);
+        currentMana.SetValue(_data.mana);
+        armor.SetValue(_data.armor);
+        resistance.SetValue(_data.resistance);
+        strength.SetValue(_data.strength);
+        intelligence.SetValue(_data.intelligence);
+        agility.SetValue(_data.agility);
+
+    }
 }

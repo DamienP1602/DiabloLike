@@ -3,14 +3,24 @@ using UnityEngine.InputSystem.HID;
 
 [RequireComponent(typeof(CameraComponent),typeof(ClickComponent), typeof(HUD))]
 [RequireComponent(typeof(InputComponent), typeof(Inventory), typeof(SpellComponent))]
+[RequireComponent(typeof(ClassComponent))]
 public class Player : BaseCharacter
 {
-    CameraComponent cameraComp = null;
-    ClickComponent clickComp = null;
-    HUD hud = null;
-    InputComponent inputs = null;
-    Inventory inventory = null;
-    SpellComponent spellComp = null;
+    CameraComponent cameraComp;
+    ClickComponent clickComp;
+    HUD hud;
+    InputComponent inputs;
+    Inventory inventory;
+    SpellComponent spellComp;
+    ClassComponent classComp;
+
+    public CameraComponent CameraComponent => cameraComp;
+    public ClickComponent ClickComponent => clickComp;
+    public HUD HUD => hud;
+    public InputComponent InputsComponent => inputs;
+    public Inventory Inventory => inventory;
+    public SpellComponent SpellComponent => spellComp;
+    public ClassComponent ClassComponent => classComp;
 
     private void Awake()
     {
@@ -20,17 +30,16 @@ public class Player : BaseCharacter
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-        InitPlayer(true);
+        //InitPlayer(true);
     }
 
     protected override void Start()
     {
         base.Start();
 
-        //DEBUG TO REMOVE
-        InitPlayer(false);
-
-        GameManager.Instance.AddPlayer(this);
+        ////DEBUG TO REMOVE
+        //InitPlayer(false);
+        //GameManager.Instance.AddPlayer(this);
     }
 
     void Update()
@@ -47,6 +56,7 @@ public class Player : BaseCharacter
         inputs = GetComponent<InputComponent>();
         inventory = GetComponent<Inventory>();
         spellComp = GetComponent<SpellComponent>();
+        classComp = GetComponent<ClassComponent>();
     }
 
     override protected void EventAssignation()
@@ -64,10 +74,17 @@ public class Player : BaseCharacter
     }
 
 
-    public void InitPlayer(bool _checkForMultiplayerOwnership)
+    public void InitPlayer(bool _checkForMultiplayerOwnership, CharacterSaveData _data, SO_CharacterClass _classData)
     {
         cameraComp = GetComponent<CameraComponent>();
         hud = GetComponent<HUD>();
+
+        characterName = _data.name;
+        statsComponent.InitFromData(_data);
+        inventory.InitFromData(_data);
+        spellComp.InitFromData(_data);
+        // Faire les managers
+        // Init avec l'UI
 
         if (_checkForMultiplayerOwnership)
         {

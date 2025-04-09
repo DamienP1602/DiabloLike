@@ -136,8 +136,14 @@ public class InventoryPanel : MonoBehaviour
     {
         if (_selectedItem == null) return;
 
-        _selectedItem.ItemData.item.Execute();
-        playerInventory.RemoveItem(_selectedItem.ItemData.item);
+        ItemType _type = _selectedItem.ItemData.item.type;
+
+        if (_type == ItemType.CONSOMMABLE)
+        {
+            _selectedItem.ItemData.item.Execute();
+            playerInventory.RemoveItem(_selectedItem.ItemData.item);
+        }
+
         InitInventoryPanel();
     }
 
@@ -150,28 +156,17 @@ public class InventoryPanel : MonoBehaviour
         // Get a potential item => if there's one, inventory component will switch them
         ItemStored _potentialItemStored = _equipmentSlot.ItemData;
 
-        // No item is selected => try to select it
+        // No item is selected => Desequip it instead of switching it with another item
         if (!currentSelectedItem)
         {
-            DeselectItem(_equipmentSlot, _potentialItemStored);
+            DesequipItem(_equipmentSlot, _potentialItemStored);
             return;
         }
+        EquipItem(_equipmentSlot,_potentialItemStored);
 
-        // If you want to equip an item with the wrong type for the slot => return 
-        if (!_equipmentSlot.IsItemGoodType(currentSelectedItem.ItemData.item.type)) return;
-        _equipmentSlot.SetItem(currentSelectedItem.ItemData);
-
-        currentSelectedItem.ClearItem();
-        currentSelectedItem = null;
-
-        if (_equipmentSlot.ItemData.item.type == ItemType.CONSOMMABLE)
-            InvokeItemEventOnType(_equipmentSlot, _potentialItemStored, OnEquipConsumable);
-
-        if (_equipmentSlot.ItemData.item.type == ItemType.WEAPON)
-            InvokeItemEventOnType(_equipmentSlot, _potentialItemStored, OnEquipEquipment);
     }
 
-    void DeselectItem(EquipmentSlot _equipmentSlot,ItemStored _potentialItemStored )
+    void DesequipItem(EquipmentSlot _equipmentSlot,ItemStored _potentialItemStored )
     {
         //If there's no item stored in the current slot => fail try and return
         if (_equipmentSlot.ItemData == null) return;
@@ -180,16 +175,31 @@ public class InventoryPanel : MonoBehaviour
         _equipmentSlot.SetSelectionStatus(true);
 
         if (_equipmentSlot.ItemData.item.type == ItemType.CONSOMMABLE)
-            InvokeItemEventOnType(_equipmentSlot, _potentialItemStored, OnDesequipConsumable);
+            InvokeItemEvent(_equipmentSlot, _potentialItemStored, OnDesequipConsumable);
         else if (_equipmentSlot.ItemData.item.type == ItemType.WEAPON)
-            InvokeItemEventOnType(_equipmentSlot, _potentialItemStored, OnDesequipEquipment);
+            InvokeItemEvent(_equipmentSlot, _potentialItemStored, OnDesequipEquipment);
 
         _equipmentSlot.ClearItem();
     }
 
-    void InvokeItemEventOnType(EquipmentSlot _equipmentSlot, ItemStored _potentialItemStored, Action<EquipmentType, ItemStored,ItemStored> _event)
+    void EquipItem(EquipmentSlot _equipmentSlot, ItemStored _potentialItemStored)
     {
-        BaseItem _item = _equipmentSlot.ItemData.item;
+        // If you want to equip an item with the wrong type for the slot => return 
+        if (!_equipmentSlot.IsItemGoodType(currentSelectedItem.ItemData.item.type)) return;
+        _equipmentSlot.SetItem(currentSelectedItem.ItemData);
+
+        currentSelectedItem.ClearItem();
+        currentSelectedItem = null;
+
+        if (_equipmentSlot.ItemData.item.type == ItemType.CONSOMMABLE)
+            InvokeItemEvent(_equipmentSlot, _potentialItemStored, OnEquipConsumable);
+
+        if (_equipmentSlot.ItemData.item.type == ItemType.WEAPON)
+            InvokeItemEvent(_equipmentSlot, _potentialItemStored, OnEquipEquipment);
+    }
+
+    void InvokeItemEvent(EquipmentSlot _equipmentSlot, ItemStored _potentialItemStored, Action<EquipmentType, ItemStored,ItemStored> _event)
+    {
         _event?.Invoke(_equipmentSlot.Type, _equipmentSlot.ItemData, _potentialItemStored);
     }
 }
