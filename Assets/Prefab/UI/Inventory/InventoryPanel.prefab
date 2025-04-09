@@ -182,8 +182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c385982869d2947ba477728b2928d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allSlots: []
   equipSlots: []
+  allSlots: []
   currentSelectedItem: {fileID: 0}
 --- !u!1 &7377035934670460962
 GameObject:
@@ -863,6 +863,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6019848525059446279, guid: c282198b6002b34429ecd14c7b4b33df, type: 3}
       propertyPath: type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623369651176967898, guid: c282198b6002b34429ecd14c7b4b33df, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623369651176967898, guid: c282198b6002b34429ecd14c7b4b33df, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623369651176967898, guid: c282198b6002b34429ecd14c7b4b33df, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623369651176967898, guid: c282198b6002b34429ecd14c7b4b33df, type: 3}
+      propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8546688707825242522, guid: c282198b6002b34429ecd14c7b4b33df, type: 3}
@@ -2089,6 +2105,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6019848525059446279, guid: c282198b6002b34429ecd14c7b4b33df, type: 3}
+      propertyPath: type
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8546688707825242522, guid: c282198b6002b34429ecd14c7b4b33df, type: 3}
       propertyPath: m_Name
       value: EquipmentSlot(Consumable2)
@@ -2394,6 +2414,10 @@ PrefabInstance:
     - target: {fileID: 1207187039514072275, guid: c282198b6002b34429ecd14c7b4b33df, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6019848525059446279, guid: c282198b6002b34429ecd14c7b4b33df, type: 3}
+      propertyPath: type
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8546688707825242522, guid: c282198b6002b34429ecd14c7b4b33df, type: 3}
       propertyPath: m_Name

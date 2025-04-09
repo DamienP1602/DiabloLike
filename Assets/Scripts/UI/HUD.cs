@@ -35,10 +35,13 @@ public class HUD : MonoBehaviour
         Overlay.ClassPanel.StatsPanel.Init();
         Overlay.ClassPanel.CompetencesPanel.SetLevel(_stats.level);
 
+        Overlay.InventoryPanel.Init();
         Overlay.InventoryPanel.SetInventory(_player.GetComponent<Inventory>());
 
         SpellComponent _spells = _player.GetComponent<SpellComponent>();
         Overlay.SkillsPanel.InitSkillImages(_spells.Spells);
+
+        Overlay.PausePanel.SetPlayerRef(_player);
     }
 
     public void ToggleInventory()

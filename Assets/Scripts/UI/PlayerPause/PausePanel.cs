@@ -14,6 +14,8 @@ public class PausePanel : MonoBehaviour
 
     Player playerRef;
 
+    public void SetPlayerRef(Player _player) => playerRef = _player;
+
     private void Awake()
     {
         resumeButton.AddLeftClickAction(ResumeGame);
@@ -35,7 +37,8 @@ public class PausePanel : MonoBehaviour
 
     void QuitGame()
     {
-        //TODO => save progression
+        SaveSystem.SaveCharacter(playerRef);
+
 #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
 #endif

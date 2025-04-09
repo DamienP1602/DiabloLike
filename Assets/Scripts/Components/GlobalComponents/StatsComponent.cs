@@ -139,6 +139,7 @@ public class StatsComponent : MonoBehaviour
         currentMana.SetValue(_data.mana);
         armor.SetValue(_data.armor);
         resistance.SetValue(_data.resistance);
+        damage.SetValue(_data.damage);
         strength.SetValue(_data.strength);
         intelligence.SetValue(_data.intelligence);
         agility.SetValue(_data.agility);

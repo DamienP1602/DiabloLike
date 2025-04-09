@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15cdb499448168a4cb6beb88750ced9e, type: 3}
   m_Name: Fire Ball
   m_EditorClassIdentifier: 
+  ID: 1
+  icon: {fileID: 0}
   manaCost: 1
   cooldown: 1
   currentCooldown: 0

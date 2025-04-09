@@ -27,9 +27,6 @@ public class InventoryItem : MonoBehaviour
     {
         button.AddLeftClickAction(() => OnItemClick?.Invoke(this));
         button.AddRightClickAction(() => OnItemExecute?.Invoke(this));
-        itemSprite.color = Color.clear;
-        itemAmountText.text = "";
-        slot = null;
     }
 
     public virtual void SetItem(ItemStored _data)

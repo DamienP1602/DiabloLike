@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerOverlay : MonoBehaviour
@@ -90,5 +91,42 @@ public class PlayerOverlay : MonoBehaviour
     {
         ConsumableSlot _consumable = consumablePanel.GetFromIndex((int)_type);
         _consumable.ResetItem();
+    }
+
+    public void SetEquipedItemFromData(CharacterSaveData _data)
+    {
+        List<BaseItem> _allItems = ItemManager.Instance.AllItems;
+        List<SaveItemData> _equipedItems = _data.itemIDEquiped;
+
+        bool _firstConsumableEquiped = false;
+
+        foreach (SaveItemData _itemData in _equipedItems)
+        {
+            foreach (BaseItem _item in _allItems)
+            {
+                if (_item.ID == _itemData.ID)
+                {
+                    ItemStored _newItem = new ItemStored(_item);
+                    _newItem.amount = _itemData.amount;
+
+                    if (_item.type == ItemType.CONSOMMABLE)
+                    {
+                        EquipmentType _type = _firstConsumableEquiped ? EquipmentType.CONSUMABLE_TWO : EquipmentType.CONSUMABLE_ONE;
+
+                        SetConsumable(_type, _newItem);
+                        inventoryPanel.PlayerInventoryRef.SetConsumable(_type,_newItem);
+                        inventoryPanel.SetEquipmentFromData(_type, _newItem);
+
+                        _firstConsumableEquiped = true;
+                    }
+                    else if (_item.type == ItemType.WEAPON)
+                    {
+                        inventoryPanel.SetEquipmentFromData(EquipmentType.WEAPON_RIGHT, _newItem);
+                    }
+                }
+            }
+        }
+        // ?
+        classPanel.StatsPanel.UpdateData();
     }
 }

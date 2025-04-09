@@ -36,6 +36,8 @@ public class CustomButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     [SerializeField] Color pressedColor = new Color(0.5f, 0.5f, 0.5f);
     [SerializeField] Color disabledColor = new Color(0.3f, 0.3f, 0.3f);
 
+    public RawImage Graphic => graphic;
+
     private void Awake()
     {
         graphic = GetComponent<RawImage>();

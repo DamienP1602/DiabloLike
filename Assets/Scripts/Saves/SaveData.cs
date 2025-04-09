@@ -42,7 +42,8 @@ public struct CharacterSaveData
 
     public int armor;
     public int resistance;
-    
+
+    public int damage;
     public int strength;
     public int intelligence;
     public int agility;

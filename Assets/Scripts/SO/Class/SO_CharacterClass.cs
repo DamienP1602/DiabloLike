@@ -25,4 +25,7 @@ public class SO_CharacterClass : ScriptableObject
     public int agility;
 
     public List<SpellCharacterData> allSpells;
+
+    public Texture2D classIcon;
+    public Color classColor;
 }

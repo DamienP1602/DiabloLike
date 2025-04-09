@@ -11,22 +11,29 @@ public class InventoryPanel : MonoBehaviour
     public event Action<EquipmentType, ItemStored,ItemStored> OnEquipEquipment;
     public event Action<EquipmentType, ItemStored,ItemStored> OnDesequipEquipment;
 
-    [Header("Equipments")]
-    [SerializeField] EquipmentSlot weaponSlot;
-
-    [Header("Consumables")]
-    [SerializeField] EquipmentSlot consumableOneSlot;
-    [SerializeField] EquipmentSlot consumableTwoSlot;
-
     [SerializeField] List<EquipmentSlot> equipSlots;
-
     [SerializeField] List<ItemSlot> allSlots;
 
     Inventory playerInventory;
     
     public InventoryItem currentSelectedItem;
 
-    private void Awake()
+    public Inventory PlayerInventoryRef => playerInventory;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (currentSelectedItem)
+            currentSelectedItem.MoveFromMouse();
+    }
+
+    public void Init()
     {
         allSlots = GetComponentsInChildren<ItemSlot>(true).ToList();
         foreach (ItemSlot _slot in allSlots)
@@ -42,19 +49,6 @@ public class InventoryPanel : MonoBehaviour
             _slot.OnItemClick += (_slot) => InitInventoryPanel();
             _slot.ClearItem();
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (currentSelectedItem)
-            currentSelectedItem.MoveFromMouse();
     }
 
     public void SetInventory(Inventory _inventory) => playerInventory = _inventory; 
@@ -201,5 +195,17 @@ public class InventoryPanel : MonoBehaviour
     void InvokeItemEvent(EquipmentSlot _equipmentSlot, ItemStored _potentialItemStored, Action<EquipmentType, ItemStored,ItemStored> _event)
     {
         _event?.Invoke(_equipmentSlot.Type, _equipmentSlot.ItemData, _potentialItemStored);
+    }
+
+    public void SetEquipmentFromData(EquipmentType _type, ItemStored _data)
+    {
+        foreach (EquipmentSlot _slot in equipSlots)
+        {
+            if (_slot.Type == _type && _slot.IsItemGoodType(_data.item.type))
+            {
+                _slot.SetItem(_data);
+                return;
+            }
+        }
     }
 }

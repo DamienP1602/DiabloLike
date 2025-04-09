@@ -31,8 +31,22 @@ public static class SaveSystem
     public static void SaveCharacter(Player _character)
     {
         string _path = GetPath();
-        //string _data = GetJsonData(_path);
-        string _characterData = CreateJsonData(_character);
+        CharacterSaveData _characterData = CreateData(_character);
+
+        int _size = data.allCharacters.Count;
+        for (int _i = 0; _i < _size; _i++)
+        {
+            CharacterSaveData _currentSavedCharacter = data.allCharacters[_i];
+            if (_currentSavedCharacter.name == _character.CharacterName)
+            {
+                data.allCharacters.Remove(_currentSavedCharacter);
+                data.allCharacters.Add(_characterData);
+                break;
+            }
+        }
+
+        string _jsonData = JsonConvert.SerializeObject(data, Formatting.Indented);
+        WriteInFile(_path, _jsonData);
     }
 
     public static void SaveCharacter(SO_CharacterClass _character, string _characterName)
@@ -64,7 +78,7 @@ public static class SaveSystem
         File.WriteAllText(_path, _data);
     }
 
-    static string CreateJsonData(Player _character)
+    static CharacterSaveData CreateData(Player _character)
     {
         CharacterSaveData _data = default;  
 
@@ -74,6 +88,7 @@ public static class SaveSystem
 
 
         List<ItemStored> _allItems = _character.Inventory.AllItems;
+        _data.itemIDInventory = new List<SaveItemData>();
         foreach (ItemStored _itemStored in _allItems)
         {
             BaseItem _item = _itemStored.item;
@@ -83,6 +98,7 @@ public static class SaveSystem
         }
 
         List<ItemStored> _allItemsEquiped = _character.Inventory.AllItemsEquiped;
+        _data.itemIDEquiped = new List<SaveItemData>();
         foreach (ItemStored _itemEquiped in _allItemsEquiped)
         {
             BaseItem _item = _itemEquiped.item;
@@ -92,15 +108,17 @@ public static class SaveSystem
         }
 
         List<Spell> _characterSpells = _character.SpellComponent.Spells;
+        _data.spellsIDEquiped = new List<int>();
         foreach (Spell _spell in _characterSpells)
         {
             _data.spellsIDEquiped.Add(_spell.ID);
         }
 
-        List<Spell> _characterPassifs = _character.SpellComponent.PassifsSpells ;
+        List<Spell> _characterPassifs = _character.SpellComponent.PassifsSpells;
+        _data.passifIDEquiped = new List<int>();
         foreach (Spell _passif in _characterPassifs)
         {
-            _data.spellsIDEquiped.Add(_passif.ID);
+            _data.passifIDEquiped.Add(_passif.ID);
         }
 
         _data.level = _character.StatsComponent.level.Value;
@@ -113,11 +131,12 @@ public static class SaveSystem
         _data.armor = _character.StatsComponent.armor.Value;
         _data.resistance = _character.StatsComponent.resistance.Value;
 
+        _data.damage = _character.StatsComponent.damage.Value;
         _data.strength = _character.StatsComponent.strength.Value;
         _data.intelligence = _character.StatsComponent.intelligence.Value;
         _data.agility = _character.StatsComponent.agility.Value;
 
-        return JsonConvert.SerializeObject(_data, Formatting.Indented);
+        return _data;
     }
 
     static CharacterSaveData CreateData(SO_CharacterClass _character, string _characterName)
@@ -144,6 +163,7 @@ public static class SaveSystem
         _data.armor = 0;
         _data.resistance = 0;
 
+        _data.damage = 1;
         _data.strength = _character.strength;
         _data.intelligence = _character.intelligence;
         _data.agility = _character.agility;

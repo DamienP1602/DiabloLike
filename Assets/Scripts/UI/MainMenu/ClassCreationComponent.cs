@@ -26,6 +26,7 @@ public class ClassCreationComponent : MonoBehaviour
 
     CharacterPrevisualitationComponent characterMesh;
     SO_CharacterClass selectedClass;
+    public bool isCharacterCreated;
 
     public CustomButton ReturnButton => returnButton;
     public CustomButton CreateCharacterButton => createCharacterButton;
@@ -54,7 +55,6 @@ public class ClassCreationComponent : MonoBehaviour
                 }
             });
         }
-        createCharacterButton.AddLeftClickAction(CreateCharacter);
         continueButton.AddLeftClickAction(() => ErrorCreationPanel.gameObject.SetActive(false));
     }
 
@@ -68,7 +68,7 @@ public class ClassCreationComponent : MonoBehaviour
 
     }
 
-    void CreateCharacter()
+    public void CreateCharacter()
     {
         if (selectedClass == null)
         {
@@ -84,5 +84,6 @@ public class ClassCreationComponent : MonoBehaviour
         }
 
         SaveSystem.SaveCharacter(selectedClass, characterNameInputField.text);
+        isCharacterCreated = true;
     }
 }

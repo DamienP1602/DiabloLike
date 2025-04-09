@@ -8,7 +8,7 @@ public class CharacterPanelComponent : MonoBehaviour
     [SerializeField] CharacterInfoComponent prefab;
     [SerializeField] List<CharacterInfoComponent> allCharacter = new List<CharacterInfoComponent>();
 
-    public void UpdateCharacterOnSaveData(Action<CharacterSaveData> _event)
+    public void UpdateCharacterOnSaveData(Action<CharacterSaveData> _event, List<SO_CharacterClass> _classesData)
     {
         SaveData _data = SaveSystem.Data;
 
@@ -25,6 +25,17 @@ public class CharacterPanelComponent : MonoBehaviour
             _newCharacter.SetLevelText(_characterData.level.ToString());
             _newCharacter.SetNameText(_characterData.name);
             _newCharacter.Button.AddLeftClickAction(() => _event?.Invoke(_characterData));
+
+            foreach (SO_CharacterClass _classData in _classesData)
+            {
+                if (_classData.classID == _characterData.classID)
+                {
+                    _newCharacter.SetBackgroundColor(_classData.classColor);
+                    _newCharacter.SetIcon(_classData.classIcon);
+                    break;
+                }
+            }
+
             allCharacter.Add(_newCharacter);
         }
     }

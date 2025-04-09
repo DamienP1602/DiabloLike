@@ -36,7 +36,7 @@ public class MainMenuComponent : MonoBehaviour
         {
             mainScreen.gameObject.SetActive(false);
             characterSelection.gameObject.SetActive(true);
-            characterSelection.CharacterPanel.UpdateCharacterOnSaveData(characterSelection.SelectCharacter);
+            characterSelection.CharacterPanel.UpdateCharacterOnSaveData(characterSelection.SelectCharacter, allClasses);
         });
         characterSelection.CreateCharacterButton.AddLeftClickAction(() =>
         {
@@ -49,12 +49,18 @@ public class MainMenuComponent : MonoBehaviour
             classCreation.ResetValues();
             characterSelection.gameObject.SetActive(true);
         });
+        classCreation.CreateCharacterButton.AddLeftClickAction(classCreation.CreateCharacter);
         classCreation.CreateCharacterButton.AddLeftClickAction(() =>
         {
-            classCreation.gameObject.SetActive(false);
-            classCreation.ResetValues();
-            characterSelection.gameObject.SetActive(true);
-            characterSelection.CharacterPanel.UpdateCharacterOnSaveData(characterSelection.SelectCharacter);
+            if (classCreation.isCharacterCreated)
+            {
+                classCreation.gameObject.SetActive(false);
+                classCreation.ResetValues();
+                characterSelection.gameObject.SetActive(true);
+                characterSelection.CharacterPanel.UpdateCharacterOnSaveData(characterSelection.SelectCharacter, allClasses);
+                classCreation.isCharacterCreated = false;
+            }
+
         });
     }
 }

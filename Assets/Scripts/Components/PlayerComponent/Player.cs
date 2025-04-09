@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 
 [RequireComponent(typeof(CameraComponent),typeof(ClickComponent), typeof(HUD))]
 [RequireComponent(typeof(InputComponent), typeof(Inventory), typeof(SpellComponent))]
@@ -31,15 +30,6 @@ public class Player : BaseCharacter
     {
         base.OnNetworkSpawn();
         //InitPlayer(true);
-    }
-
-    protected override void Start()
-    {
-        base.Start();
-
-        ////DEBUG TO REMOVE
-        //InitPlayer(false);
-        //GameManager.Instance.AddPlayer(this);
     }
 
     void Update()
@@ -76,13 +66,20 @@ public class Player : BaseCharacter
 
     public void InitPlayer(bool _checkForMultiplayerOwnership, CharacterSaveData _data, SO_CharacterClass _classData)
     {
+        base.Start();
+        
         cameraComp = GetComponent<CameraComponent>();
         hud = GetComponent<HUD>();
 
         characterName = _data.name;
+        classComp.SetCharacterClass(_classData);
         statsComponent.InitFromData(_data);
+        statsComponent.ComputeNextExperienceCap();
+        hud.Init(this);
         inventory.InitFromData(_data);
         spellComp.InitFromData(_data);
+        hud.Overlay.SetEquipedItemFromData(_data);
+        hud.Overlay.SkillsPanel.LoadSkillImage();
         // Faire les managers
         // Init avec l'UI
 
@@ -93,7 +90,6 @@ public class Player : BaseCharacter
 
         cameraComp.CreateCamera();
 
-        hud.Init(this);
         //Todo => Create Competence Tree from class when it will be selectable
         hud.Overlay.ClassPanel.CompetencesPanel.InitFromClass();
         SetEventOnUI();

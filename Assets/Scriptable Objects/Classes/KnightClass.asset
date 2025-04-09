@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb63bd6555ca7554ca145527ab8b1f05, type: 3}
   m_Name: KnightClass
   m_EditorClassIdentifier: 
+  classID: 0
   className: Paladin
   characterModel: {fileID: 2717591372011546379, guid: 29c05f6eebc9b3f4296cb47018b1f56c, type: 3}
   classInfo:
@@ -27,3 +28,5 @@ MonoBehaviour:
   allSpells:
   - minimumLevel: 3
     spell: {fileID: 11400000, guid: 4fbc9ed8fefbcfe43868edb02a60d529, type: 2}
+  classIcon: {fileID: 2800000, guid: e141f0319be059746b765b74d90b2247, type: 3}
+  classColor: {r: 1, g: 0.7394294, b: 0, a: 1}
