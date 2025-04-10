@@ -6,4 +6,6 @@ using UnityEngine;
 public class CharacterPrevisualitationComponent : MonoBehaviour
 {
     [SerializeField] GameObject body;
+
+    public GameObject Body => body;
 }

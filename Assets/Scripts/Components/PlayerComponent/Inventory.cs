@@ -186,7 +186,7 @@ public class Inventory : MonoBehaviour
         SO_Weapon _weapon = _data.item as SO_Weapon;
         if (!_weapon) return;
 
-        if (_oldData != null)
+        if (_oldData.item != null)
         {
             SO_Weapon _oldWeapon = _oldData.item as SO_Weapon;
             if (!_oldWeapon) return;
@@ -217,29 +217,35 @@ public class Inventory : MonoBehaviour
 
     public void InitFromData(CharacterSaveData _data)
     {
-        List<BaseItem> _allItems = ItemManager.Instance.AllItems;
+        List<BaseItem> _allItems = ItemManager.Instance.AllItems;//
 
         List<SaveItemData> _savedItems = _data.itemIDInventory;
-        foreach (SaveItemData _save in _savedItems)
+        if (_savedItems != null)
         {
-            foreach (BaseItem _item in _allItems)
+            foreach (SaveItemData _save in _savedItems)
             {
-                if (_save.ID == _item.ID)
-                    AddItem(_item, _save.amount);
+                foreach (BaseItem _item in _allItems)
+                {
+                    if (_save.ID == _item.ID)
+                        AddItem(_item, _save.amount);
+                }
             }
         }
 
         List<SaveItemData> _savedEquipedItems = _data.itemIDEquiped;
-        foreach (SaveItemData _save in _savedEquipedItems)
+        if ( _savedEquipedItems != null)
         {
-            foreach (BaseItem _item in _allItems)
+            foreach (SaveItemData _save in _savedEquipedItems)
             {
-                if (_save.ID == _item.ID)
+                foreach (BaseItem _item in _allItems)
                 {
-                    ItemStored _newItem = new ItemStored(_item);
-                    _newItem.amount = _save.amount;
+                    if (_save.ID == _item.ID)
+                    {
+                        ItemStored _newItem = new ItemStored(_item);
+                        _newItem.amount = _save.amount;
 
-                    itemEquiped.Add(new ItemStored(_item));
+                        itemEquiped.Add(new ItemStored(_item));
+                    }
                 }
             }
         }

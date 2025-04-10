@@ -45,7 +45,7 @@ public class ClassCreationComponent : MonoBehaviour
                     Destroy(characterMesh.gameObject);
 
                 className.text = _data.className;
-                characterMesh = Instantiate(_data.characterModel, transform);
+                characterMesh = Instantiate(_data.characterPrevisualisation, transform);
                 selectedClass = _data;
 
                 classInfoText.text = "";

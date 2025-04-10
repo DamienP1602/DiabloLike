@@ -15,4 +15,7 @@ MonoBehaviour:
   items:
   - percentageOfDrop: 10
     itemToDrop: {fileID: 3164010029470595975, guid: b9ac55b0a849c3c408c1a02f14bea9c0, type: 3}
-    mustDrop: 1
+    mustDrop: 0
+  - percentageOfDrop: 5
+    itemToDrop: {fileID: 5295276814829686299, guid: eaa3d541d29ee21408e3bbebdd6c2cfa, type: 3}
+    mustDrop: 0

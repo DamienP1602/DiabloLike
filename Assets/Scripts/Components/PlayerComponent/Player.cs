@@ -72,6 +72,9 @@ public class Player : BaseCharacter
         hud = GetComponent<HUD>();
 
         characterName = _data.name;
+        GameObject _model = Instantiate(_classData.characterPrevisualisation.Body,transform);
+        animationComponent.SetAnimatorController(_classData.controller);
+
         classComp.SetCharacterClass(_classData);
         statsComponent.InitFromData(_data);
         statsComponent.ComputeNextExperienceCap();
@@ -80,8 +83,7 @@ public class Player : BaseCharacter
         spellComp.InitFromData(_data);
         hud.Overlay.SetEquipedItemFromData(_data);
         hud.Overlay.SkillsPanel.LoadSkillImage();
-        // Faire les managers
-        // Init avec l'UI
+        
 
         if (_checkForMultiplayerOwnership)
         {

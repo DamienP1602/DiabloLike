@@ -100,33 +100,35 @@ public class PlayerOverlay : MonoBehaviour
 
         bool _firstConsumableEquiped = false;
 
-        foreach (SaveItemData _itemData in _equipedItems)
+        if (_equipedItems != null)
         {
-            foreach (BaseItem _item in _allItems)
+            foreach (SaveItemData _itemData in _equipedItems)
             {
-                if (_item.ID == _itemData.ID)
+                foreach (BaseItem _item in _allItems)
                 {
-                    ItemStored _newItem = new ItemStored(_item);
-                    _newItem.amount = _itemData.amount;
-
-                    if (_item.type == ItemType.CONSOMMABLE)
+                    if (_item.ID == _itemData.ID)
                     {
-                        EquipmentType _type = _firstConsumableEquiped ? EquipmentType.CONSUMABLE_TWO : EquipmentType.CONSUMABLE_ONE;
+                        ItemStored _newItem = new ItemStored(_item);
+                        _newItem.amount = _itemData.amount;
 
-                        SetConsumable(_type, _newItem);
-                        inventoryPanel.PlayerInventoryRef.SetConsumable(_type,_newItem);
-                        inventoryPanel.SetEquipmentFromData(_type, _newItem);
+                        if (_item.type == ItemType.CONSOMMABLE)//
+                        {
+                            EquipmentType _type = _firstConsumableEquiped ? EquipmentType.CONSUMABLE_TWO : EquipmentType.CONSUMABLE_ONE;
 
-                        _firstConsumableEquiped = true;
-                    }
-                    else if (_item.type == ItemType.WEAPON)
-                    {
-                        inventoryPanel.SetEquipmentFromData(EquipmentType.WEAPON_RIGHT, _newItem);
+                            SetConsumable(_type, _newItem);
+                            inventoryPanel.PlayerInventoryRef.SetConsumable(_type, _newItem);
+                            inventoryPanel.SetEquipmentFromData(_type, _newItem);
+
+                            _firstConsumableEquiped = true;
+                        }
+                        else if (_item.type == ItemType.WEAPON)
+                        {
+                            inventoryPanel.SetEquipmentFromData(EquipmentType.WEAPON_RIGHT, _newItem);
+                        }
                     }
                 }
             }
         }
-        // ?
         classPanel.StatsPanel.UpdateData();
     }
 }

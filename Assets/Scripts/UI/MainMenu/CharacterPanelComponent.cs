@@ -30,7 +30,6 @@ public class CharacterPanelComponent : MonoBehaviour
             {
                 if (_classData.classID == _characterData.classID)
                 {
-                    _newCharacter.SetBackgroundColor(_classData.classColor);
                     _newCharacter.SetIcon(_classData.classIcon);
                     break;
                 }

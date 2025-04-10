@@ -114,7 +114,7 @@ public class CharacterSelectionComponent : MonoBehaviour
         {
             if (_data.className == _character.className)
             {
-                characterMesh = Instantiate(_data.characterModel, transform);
+                characterMesh = Instantiate(_data.characterPrevisualisation, transform);
                 characterSelected = _character;
                 classSelected = _data;
             }

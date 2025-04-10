@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 
 [Serializable]
@@ -13,9 +14,9 @@ public struct SpellCharacterData
 [CreateAssetMenu(fileName = "Empty Class Data", menuName = "Character Class/Create Class Data")]
 public class SO_CharacterClass : ScriptableObject
 {
+    [Header("Class Data")]
     public int classID;
     public string className;
-    public CharacterPrevisualitationComponent characterModel;
     public List<string> classInfo;
 
     public int health;
@@ -26,6 +27,10 @@ public class SO_CharacterClass : ScriptableObject
 
     public List<SpellCharacterData> allSpells;
 
+    [Header("Graphic Data")]
+    public CharacterPrevisualitationComponent characterPrevisualisation;
     public Texture2D classIcon;
-    public Color classColor;
+
+    [Header("Animation Data")]
+    public RuntimeAnimatorController controller;
 }

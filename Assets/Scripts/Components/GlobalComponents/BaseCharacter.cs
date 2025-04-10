@@ -5,14 +5,14 @@ using Unity.Netcode;
 using UnityEngine;
 
 [RequireComponent(typeof(StatsComponent), typeof(AnimationComponent), typeof(MovementComponent))]
-[RequireComponent (typeof(AttackComponent))]
+[RequireComponent(typeof(AttackComponent), typeof(BoxCollider), typeof(Rigidbody))]
 public abstract class BaseCharacter : NetworkBehaviour
 {
     [SerializeField] protected string characterName;
     public string CharacterName => characterName;
 
     protected StatsComponent statsComponent;
-    protected AnimationComponent animationComponent;
+    [SerializeField] protected AnimationComponent animationComponent;
     protected MovementComponent movementComponent;
     protected AttackComponent attackComponent;
 

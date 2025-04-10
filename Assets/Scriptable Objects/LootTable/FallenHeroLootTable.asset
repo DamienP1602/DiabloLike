@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - percentageOfDrop: 0
-    itemToDrop: {fileID: 5295276814829686299, guid: eaa3d541d29ee21408e3bbebdd6c2cfa, type: 3}
+    itemToDrop: {fileID: 8341550866038430548, guid: acb8e0fc8dcc7f34e92c53997f1f258f, type: 3}
     mustDrop: 1
