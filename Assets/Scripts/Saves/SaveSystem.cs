@@ -21,11 +21,14 @@ public static class SaveSystem
         data = JsonConvert.DeserializeObject<SaveData>(_jsonData);
     }
 
-    public static void SaveGame()
+    public static bool HasCharacterAlreadyThisName(string _name)
     {
-        string _path = GetPath();
-
-
+        foreach (CharacterSaveData _characterData in data.allCharacters)
+        {
+            if (_characterData.name == _name)
+                return true;
+        }
+        return false;
     }
 
     public static void SaveCharacter(Player _character)
@@ -169,6 +172,24 @@ public static class SaveSystem
         _data.agility = _character.agility;
 
         return _data;
-        //return JsonConvert.SerializeObject(_data,Formatting.Indented);
+    }
+
+    public static void DeleteCharacter(CharacterSaveData _characterSelected)
+    {
+        int _size = data.allCharacters.Count;
+        for (int _i = 0; _i < _size; _i++)
+        {
+            CharacterSaveData _character = data.allCharacters[_i];
+
+            if (_character.name == _characterSelected.name)
+            {
+                data.allCharacters.Remove(_character);
+                break;
+            }
+        }
+
+        string _path = GetPath();
+        string _jsonData = JsonConvert.SerializeObject(data,Formatting.Indented);
+        File.WriteAllText(_path, _jsonData);
     }
 }

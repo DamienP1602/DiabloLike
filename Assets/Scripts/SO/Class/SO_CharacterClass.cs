@@ -30,6 +30,7 @@ public class SO_CharacterClass : ScriptableObject
     [Header("Graphic Data")]
     public CharacterPrevisualitationComponent characterPrevisualisation;
     public Texture2D classIcon;
+    public Color classColor;
 
     [Header("Animation Data")]
     public RuntimeAnimatorController controller;

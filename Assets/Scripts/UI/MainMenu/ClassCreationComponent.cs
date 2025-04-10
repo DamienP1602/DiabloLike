@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using Newtonsoft.Json.Bson;
 using System.Collections;
 using System.Collections.Generic;
@@ -70,20 +71,27 @@ public class ClassCreationComponent : MonoBehaviour
 
     public void CreateCharacter()
     {
+        string _characterName = characterNameInputField.text;
         if (selectedClass == null)
         {
             ErrorCreationPanel.gameObject.SetActive(true);
             ErrorText.text = "You need to select a Class";
             return;
         }
-        else if (string.IsNullOrEmpty(characterNameInputField.text))
+        else if (string.IsNullOrEmpty(_characterName))
         {
             ErrorCreationPanel.gameObject.SetActive(true);
             ErrorText.text = "You need to enter a Name";
             return;
         }
+        else if (SaveSystem.HasCharacterAlreadyThisName(_characterName))
+        {
+            ErrorCreationPanel.gameObject.SetActive(true);
+            ErrorText.text = "This Name is already selected";
+            return;
+        }
 
-        SaveSystem.SaveCharacter(selectedClass, characterNameInputField.text);
+        SaveSystem.SaveCharacter(selectedClass, _characterName);
         isCharacterCreated = true;
     }
 }

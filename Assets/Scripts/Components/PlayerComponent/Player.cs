@@ -72,7 +72,7 @@ public class Player : BaseCharacter
         hud = GetComponent<HUD>();
 
         characterName = _data.name;
-        GameObject _model = Instantiate(_classData.characterPrevisualisation.Body,transform);
+        Instantiate(_classData.characterPrevisualisation.Body,transform);
         animationComponent.SetAnimatorController(_classData.controller);
 
         classComp.SetCharacterClass(_classData);
@@ -83,7 +83,8 @@ public class Player : BaseCharacter
         spellComp.InitFromData(_data);
         hud.Overlay.SetEquipedItemFromData(_data);
         hud.Overlay.SkillsPanel.LoadSkillImage();
-        
+        hud.Overlay.ClassPanel.CompetencesPanel.InitFromClassData(_classData);
+        spellComp.SetSpellSocket();
 
         if (_checkForMultiplayerOwnership)
         {
@@ -92,8 +93,7 @@ public class Player : BaseCharacter
 
         cameraComp.CreateCamera();
 
-        //Todo => Create Competence Tree from class when it will be selectable
-        hud.Overlay.ClassPanel.CompetencesPanel.InitFromClass();
+
         SetEventOnUI();
         SetInputs();
     }

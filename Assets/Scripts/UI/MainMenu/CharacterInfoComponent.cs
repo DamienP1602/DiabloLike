@@ -13,6 +13,7 @@ public class CharacterInfoComponent : MonoBehaviour
     [SerializeField] TMP_Text classText;
 
     public CustomButton Button => backgroundButton;
+    public string CharacterName => nameText.text;
 
     private void Awake()
     {
@@ -26,5 +27,5 @@ public class CharacterInfoComponent : MonoBehaviour
     public void SetNameText(string _text) => nameText.text = _text;
     public void SetClassText(string _text) => classText.text = _text;
     public void SetIcon(Texture2D _icon) => characterIcon.texture = _icon;
-    public void SetBackgroundColor(Color _color) => backgroundButton.Graphic.color = _color;
+    public void SetClassTextColor(Color _color) => classText.color = _color;
 }

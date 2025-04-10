@@ -12,7 +12,7 @@ public abstract class BaseCharacter : NetworkBehaviour
     public string CharacterName => characterName;
 
     protected StatsComponent statsComponent;
-    [SerializeField] protected AnimationComponent animationComponent;
+    protected AnimationComponent animationComponent;
     protected MovementComponent movementComponent;
     protected AttackComponent attackComponent;
 

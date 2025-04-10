@@ -1,26 +1,16 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class CompetencesPanel : MonoBehaviour
 {
-    public event Action<Spell> OnSpellLearn;
-    public event Action<Spell> OnSpellDesequip;
+    public Action<Spell> OnSpellLearn;
+    public Action<Spell> OnSpellDesequip;
 
-    [SerializeField] List<CompetenceIcon> allCompetencesToLearn;
+    [SerializeField] CompetenceIcon competencePrefab;
+    [SerializeField] List<CompetenceIcon> allCompetencesToLearn;    
 
     StatData level;
-
-    private void Awake()
-    {
-        allCompetencesToLearn = GetComponentsInChildren<CompetenceIcon>().ToList();
-        foreach (CompetenceIcon _comp in allCompetencesToLearn)
-        {
-            _comp.Button.AddLeftClickAction(() => _comp.LearnSpell(OnSpellLearn, OnSpellDesequip));
-        }
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -36,9 +26,17 @@ public class CompetencesPanel : MonoBehaviour
 
     public void SetLevel(StatData _data) => level = _data;
 
-    public void InitFromClass()
+    public void InitFromClassData(SO_CharacterClass _classData)
     {
+        List<SpellCharacterData> _classSpells = _classData.allSpells;
+        foreach (SpellCharacterData _spellData in _classSpells)
+        {
+            CompetenceIcon _newCompetence = Instantiate(competencePrefab, transform);
+            _newCompetence.SetSpell(_spellData.spell, _spellData.minimumLevel, _spellData.spell.icon);
+            _newCompetence.Button.AddLeftClickAction(() => _newCompetence.LearnSpell(OnSpellLearn, OnSpellDesequip));
 
+            allCompetencesToLearn.Add(_newCompetence);
+        }
     }
 
     public void Open()

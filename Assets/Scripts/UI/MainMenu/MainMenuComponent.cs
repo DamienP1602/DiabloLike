@@ -37,6 +37,7 @@ public class MainMenuComponent : MonoBehaviour
             mainScreen.gameObject.SetActive(false);
             characterSelection.gameObject.SetActive(true);
             characterSelection.CharacterPanel.UpdateCharacterOnSaveData(characterSelection.SelectCharacter, allClasses);
+            characterSelection.DrawCreationButton();
         });
         characterSelection.CreateCharacterButton.AddLeftClickAction(() =>
         {
@@ -48,6 +49,7 @@ public class MainMenuComponent : MonoBehaviour
             classCreation.gameObject.SetActive(false);
             classCreation.ResetValues();
             characterSelection.gameObject.SetActive(true);
+            characterSelection.DrawCreationButton();
         });
         classCreation.CreateCharacterButton.AddLeftClickAction(classCreation.CreateCharacter);
         classCreation.CreateCharacterButton.AddLeftClickAction(() =>
@@ -59,6 +61,7 @@ public class MainMenuComponent : MonoBehaviour
                 characterSelection.gameObject.SetActive(true);
                 characterSelection.CharacterPanel.UpdateCharacterOnSaveData(characterSelection.SelectCharacter, allClasses);
                 classCreation.isCharacterCreated = false;
+                characterSelection.DrawCreationButton();
             }
 
         });

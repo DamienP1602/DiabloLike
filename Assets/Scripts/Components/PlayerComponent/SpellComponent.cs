@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class SpellComponent : MonoBehaviour
 {
@@ -17,7 +19,9 @@ public class SpellComponent : MonoBehaviour
     [SerializeField] List<Spell> spells;
     [SerializeField] List<Spell> passifsSpells;
     [SerializeField] Transform spellSocket;
+    [SerializeField] LayerMask groundLayer;
     AnimationComponent animRef;
+    MovementComponent movementRef;
 
     List<Spell> spellsOnCooldown;
     Spell currentSpell;
@@ -30,8 +34,10 @@ public class SpellComponent : MonoBehaviour
     void Start()
     {
         animRef = GetComponent<AnimationComponent>();
+        movementRef = GetComponent<MovementComponent>();
         ResetSpells();
         spellsOnCooldown = new List<Spell>();
+
     }
 
     private void Update()
@@ -48,6 +54,12 @@ public class SpellComponent : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public void SetSpellSocket()
+    {
+        SpellSocket _spellSocket = GetComponentInChildren<SpellSocket>(true);
+        spellSocket = _spellSocket.transform;
     }
 
     public void RemoveSpell(Spell _spellToRemove)
@@ -107,6 +119,22 @@ public class SpellComponent : MonoBehaviour
 
     void ExecuteSpell()
     {
+        Ray _ray = Camera.current.ScreenPointToRay(Input.mousePosition);
+        RaycastHit _result;
+
+        if (Physics.Raycast(_ray, out _result, 20.0f, groundLayer))
+        {g
+            Vector3 _pointTouch = _result.point;
+            Quaternion _rot = Quaternion.LookRotation(_pointTouch);
+            transform.rotation = _rot;
+        }
+
+        //Vector3 _lookAt = _position - _mousePose;
+        //if (_lookAt != Vector3.zero)
+        //    transform.eulerAngles = _lookAt;
+
+        movementRef.SetCantMove(currentSpell.castTime);
+
         currentSpell.Execute(GetComponent<Player>(),spellSocket);
     }
 

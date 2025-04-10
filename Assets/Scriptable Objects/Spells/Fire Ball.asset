@@ -17,7 +17,7 @@ MonoBehaviour:
   manaCost: 1
   cooldown: 1
   currentCooldown: 0
-  castTime: 0.5
+  castTime: 1
   isOnCooldown: 0
   animationSpellName: spell
   projectile: {fileID: -1846231339364095638, guid: 61d9a55fa0e863f46aaf113829cb3aae, type: 3}

@@ -195,8 +195,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_Color: {r: 0, g: 0, b: 0, a: 0.7490196}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -260,10 +260,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f438517223452c24a920c3fa8ff9e40b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spell: {fileID: 11400000, guid: 4fbc9ed8fefbcfe43868edb02a60d529, type: 2}
-  minimumLevel: 1
-  button: {fileID: 0}
+  button: {fileID: 3229320840512324118}
+  levelText: {fileID: 389218893608085600}
   icon: {fileID: 1717469572032481447}
+  spell: {fileID: 0}
+  minimumLevel: 0
   isLearned: 0
 --- !u!1 &5014467642003171306
 GameObject:
@@ -415,7 +416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

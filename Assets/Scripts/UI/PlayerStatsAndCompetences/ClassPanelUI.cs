@@ -11,6 +11,8 @@ public class ClassPanelUI : MonoBehaviour
     [SerializeField] StatsPanel statsPanel;
     [SerializeField] CompetencesPanel competencesPanel;
 
+    [SerializeField] CompetenceIcon prefab;
+
     public StatsPanel StatsPanel => statsPanel;
     public CompetencesPanel CompetencesPanel => competencesPanel;
 

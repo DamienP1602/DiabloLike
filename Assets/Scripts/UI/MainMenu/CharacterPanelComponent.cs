@@ -8,6 +8,8 @@ public class CharacterPanelComponent : MonoBehaviour
     [SerializeField] CharacterInfoComponent prefab;
     [SerializeField] List<CharacterInfoComponent> allCharacter = new List<CharacterInfoComponent>();
 
+    public int CharacterAmount => allCharacter.Count;
+
     public void UpdateCharacterOnSaveData(Action<CharacterSaveData> _event, List<SO_CharacterClass> _classesData)
     {
         SaveData _data = SaveSystem.Data;
@@ -31,11 +33,25 @@ public class CharacterPanelComponent : MonoBehaviour
                 if (_classData.classID == _characterData.classID)
                 {
                     _newCharacter.SetIcon(_classData.classIcon);
+                    _newCharacter.SetClassTextColor(_classData.classColor);
                     break;
                 }
             }
 
             allCharacter.Add(_newCharacter);
+        }
+    }
+
+    public void RemoveCharacter(string _name)
+    {
+        foreach (CharacterInfoComponent _character in allCharacter)
+        {
+            if (_character.CharacterName == _name)
+            {
+                Destroy(_character.gameObject);
+                allCharacter.Remove(_character);
+                return;
+            }
         }
     }
 }

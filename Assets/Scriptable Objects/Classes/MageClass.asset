@@ -29,4 +29,5 @@ MonoBehaviour:
     spell: {fileID: 11400000, guid: 8d219a21b3d06e943bfab4059261e993, type: 2}
   characterPrevisualisation: {fileID: 7091786263795617728, guid: 70331a61f9bff384f88931eb894c8701, type: 3}
   classIcon: {fileID: 2800000, guid: b110a93e74c44294c9aead7365c20ca6, type: 3}
+  classColor: {r: 0, g: 0.645, b: 1, a: 1}
   controller: {fileID: 9100000, guid: b87a7eb0672579143a9ba510e8097cca, type: 2}
