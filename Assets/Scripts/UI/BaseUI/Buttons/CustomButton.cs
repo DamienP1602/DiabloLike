@@ -1,18 +1,21 @@
+using Newtonsoft.Json.Converters;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public struct HoverEvent
+public class HoverEvent
 {
     public float requiredTime;
     public Action hoverEvent;
+    public bool hasBeenActivated;
 
     public HoverEvent(float _minimumTime, Action _action)
     {
         requiredTime = _minimumTime;
         hoverEvent = _action;
+        hasBeenActivated = false;
     }
 }
 
@@ -75,10 +78,18 @@ public class CustomButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     void InvokeHoverEvent()
     {
-        foreach (HoverEvent _data in allHoverEvents)
+        int _size = allHoverEvents.Count;
+        for (int _i = 0; _i < _size; _i++)
         {
+            HoverEvent _data = allHoverEvents[_i];
+
             if (_data.requiredTime <= hoveredTime)
+            {
+                if (_data.hasBeenActivated) return;
+
                 _data.hoverEvent?.Invoke();
+                _data.hasBeenActivated = true;
+            }
         }
     }
 
@@ -106,6 +117,13 @@ public class CustomButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         isHovered = true;
 
         InvokeOnEnter();
+
+        int _size = allHoverEvents.Count;
+        for (int _i = 0; _i < _size; _i++)
+        {
+            HoverEvent _data = allHoverEvents[_i];
+            _data.hasBeenActivated = false;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)

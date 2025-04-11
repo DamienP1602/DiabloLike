@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Fire Ball
   m_EditorClassIdentifier: 
   ID: 1
-  icon: {fileID: 0}
+  icon: {fileID: 2800000, guid: 458808ca1cd2a47439879e5ae04dbf2f, type: 3}
   manaCost: 1
   cooldown: 1
   currentCooldown: 0
   castTime: 1
   isOnCooldown: 0
   animationSpellName: spell
+  needToRotatePlayer: 1
   projectile: {fileID: -1846231339364095638, guid: 61d9a55fa0e863f46aaf113829cb3aae, type: 3}
   lifespan: 3

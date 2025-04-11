@@ -20,6 +20,7 @@ public class ItemStored
 public class Inventory : MonoBehaviour
 {
     public event Action<ItemStored> OnConsumableUse;
+    public event Action<int> OnChangeGoldAmount;
 
     int inventorySize = 32;
     [SerializeField] List<ItemStored> allItems = new List<ItemStored>();
@@ -249,5 +250,17 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SetGoldAmount(int _amount)
+    {
+        gold = _amount;
+        OnChangeGoldAmount?.Invoke(gold);
+    }
+
+    public void ChangeGoldValue(int _amount)
+    {
+        gold += _amount;
+        OnChangeGoldAmount?.Invoke(gold);
     }
 }

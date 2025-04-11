@@ -94,11 +94,20 @@ public class StatsComponent : MonoBehaviour
         return _damageAmount;
     }
 
-    public int RetreiveDamageReduction()
+    public int RetreiveArmorReduction()
     {
         float _damageReduction = MathF.Floor(armor.Value / 10.0f);
 
         return (int)_damageReduction;
+    }
+
+    public int RetreiveResistanceReduction(int _damage)
+    {
+        int _newDamage = _damage - resistance.Value;
+        if (_newDamage <= 2)
+            _newDamage = 2;
+
+        return _newDamage;
     }
 
     public int RetreiveExperience() => (level.Value * 2) * (int)type;

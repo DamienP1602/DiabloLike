@@ -21,6 +21,10 @@ MonoBehaviour:
     rarity: 1
   type: 2
   canBeStacked: 0
+  ItemDescriptions:
+  - +5 Damage
+  - +2 Strength
+  - +1 Agility
   damage: 5
   strength: 2
   intelligence: 0

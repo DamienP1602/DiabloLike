@@ -66,10 +66,7 @@ public class CharacterSelectionComponent : MonoBehaviour
 
     public void DrawCreationButton()
     {
-        if (charactersPanel.CharacterAmount == 4)
-        {
-            createCharacterButton.SetInteractable(false);
-        }
+        createCharacterButton.SetInteractable(charactersPanel.CharacterAmount >= 4 ? false : true);
     }
 
     void CloseGame()
@@ -147,6 +144,7 @@ public class CharacterSelectionComponent : MonoBehaviour
         SaveSystem.DeleteCharacter(characterSelected.Value);
         characterSelected = null;
         CloseDeletePanel();
+        DrawCreationButton();//
         deleteCharacterButton.SetInteractable(false);
     }
 }

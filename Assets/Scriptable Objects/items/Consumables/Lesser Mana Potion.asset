@@ -21,4 +21,6 @@ MonoBehaviour:
     rarity: 0
   type: 1
   canBeStacked: 1
+  ItemDescriptions:
+  - Restaures 10 Mana.
   manaRestaured: 10

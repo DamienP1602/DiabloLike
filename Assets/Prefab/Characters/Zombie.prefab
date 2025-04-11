@@ -84,6 +84,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lootTable: {fileID: 11400000, guid: 14a6c840b28f42a4ca1d6e370efecb86, type: 2}
+  minGoldDropAmount: 8
+  maxGoldDropAmount: 19
 --- !u!114 &7371411872346077660
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 222461645
+  GlobalObjectIdHash: 30906433
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -181,6 +183,8 @@ MonoBehaviour:
   cantMoveProgession: 0
   destination: {x: 0, y: 0, z: 0}
   target: {fileID: 0}
+  rotationTarget: {x: 0, y: 0, z: 0}
+  needToRotate: 0
 --- !u!114 &1726383298644273468
 MonoBehaviour:
   m_ObjectHideFlags: 0

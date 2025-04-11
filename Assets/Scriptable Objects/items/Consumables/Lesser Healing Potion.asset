@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f18aaa1d6c630449b037b57fd84cd2b, type: 3}
   m_Name: Lesser Healing Potion
   m_EditorClassIdentifier: 
+  ID: 0
   owner: {fileID: 0}
   icon: {fileID: 2800000, guid: 15e2971534b5ed84696df806da8a8e77, type: 3}
   itemName: Lesser Healing Potion
@@ -20,4 +21,6 @@ MonoBehaviour:
     rarity: 0
   type: 1
   canBeStacked: 1
+  ItemDescriptions:
+  - Restaures 5 Health.
   lifeRestaured: 5

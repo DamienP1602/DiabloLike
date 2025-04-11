@@ -19,9 +19,11 @@ public class SpellComponent : MonoBehaviour
     [SerializeField] List<Spell> spells;
     [SerializeField] List<Spell> passifsSpells;
     [SerializeField] Transform spellSocket;
-    [SerializeField] LayerMask groundLayer;
+
     AnimationComponent animRef;
     MovementComponent movementRef;
+    CameraComponent cameraRef;
+    Vector3 test;
 
     List<Spell> spellsOnCooldown;
     Spell currentSpell;
@@ -35,6 +37,7 @@ public class SpellComponent : MonoBehaviour
     {
         animRef = GetComponent<AnimationComponent>();
         movementRef = GetComponent<MovementComponent>();
+        cameraRef = GetComponent<CameraComponent>();
         ResetSpells();
         spellsOnCooldown = new List<Spell>();
 
@@ -59,6 +62,8 @@ public class SpellComponent : MonoBehaviour
     public void SetSpellSocket()
     {
         SpellSocket _spellSocket = GetComponentInChildren<SpellSocket>(true);
+        if (_spellSocket == null) return;
+
         spellSocket = _spellSocket.transform;
     }
 
@@ -104,6 +109,12 @@ public class SpellComponent : MonoBehaviour
         if (_stats.currentMana.Value < currentSpell.manaCost)
             return;
 
+        if (currentSpell.needToRotatePlayer)
+        {
+            RotateMeshFromMousePosition();
+            movementRef.SetCantMove(currentSpell.castTime);
+        }
+
         //launch anim spell
         animRef.StartSpellAnimation(currentSpell.animationSpellName);
 
@@ -119,28 +130,25 @@ public class SpellComponent : MonoBehaviour
 
     void ExecuteSpell()
     {
-        Ray _ray = Camera.current.ScreenPointToRay(Input.mousePosition);
-        RaycastHit _result;
-
-        if (Physics.Raycast(_ray, out _result, 20.0f, groundLayer))
-        {g
-            Vector3 _pointTouch = _result.point;
-            Quaternion _rot = Quaternion.LookRotation(_pointTouch);
-            transform.rotation = _rot;
-        }
-
-        //Vector3 _lookAt = _position - _mousePose;
-        //if (_lookAt != Vector3.zero)
-        //    transform.eulerAngles = _lookAt;
-
-        movementRef.SetCantMove(currentSpell.castTime);
-
         currentSpell.Execute(GetComponent<Player>(),spellSocket);
+        movementRef.SetRotationTarget(false);
     }
 
     void StopAnimation()
     {
         animRef.StopSpellAnimation(currentSpell.animationSpellName);
+    }
+
+    void RotateMeshFromMousePosition()
+    {
+        Ray _ray = cameraRef.RenderCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit _result;
+
+        if (Physics.Raycast(_ray, out _result, 100.0f, GetComponent<ClickComponent>().GroundLayer))
+        {
+            movementRef.SetRotationTarget(true,_result.point);
+            test = _result.point;
+        }
     }
 
     private void OnDrawGizmos()
@@ -156,9 +164,9 @@ public class SpellComponent : MonoBehaviour
 
                 Gizmos.color = debugSpellsColor[_i];
                 Gizmos.DrawWireSphere(transform.position,_standingSpell.range);
-
             }
         }
+        Gizmos.DrawWireSphere(test, 1.0f);
     }
 
     public void InitFromData(CharacterSaveData _data)

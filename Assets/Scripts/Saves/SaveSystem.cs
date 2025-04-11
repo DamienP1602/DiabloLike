@@ -89,7 +89,7 @@ public static class SaveSystem
         _data.classID = _character.ClassComponent.ClassData.classID;
         _data.className = _character.ClassComponent.ClassData.className;
 
-
+        _data.gold = _character.Inventory.Gold;
         List<ItemStored> _allItems = _character.Inventory.AllItems;
         _data.itemIDInventory = new List<SaveItemData>();
         foreach (ItemStored _itemStored in _allItems)
@@ -150,6 +150,7 @@ public static class SaveSystem
         _data.classID = _character.classID;
         _data.className = _character.className;
 
+        _data.gold = 0;
         _data.itemIDInventory = new List<SaveItemData>();
         _data.itemIDEquiped = new List<SaveItemData>();
 

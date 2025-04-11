@@ -9,7 +9,7 @@ public class SkillsPanel : MonoBehaviour
     List<Spell> selectedSpells = new();
     [SerializeField] List<SkillIcon> icons = new();
 
-    public bool HasEnoughMana(Spell _spell, float _currentMana) => _spell.manaCost < _currentMana;
+    public bool HasEnoughMana(Spell _spell, float _currentMana) => _spell.manaCost <= _currentMana;
 
     public void InitSkillImages(List<Spell> _selectedSpells)
     {

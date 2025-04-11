@@ -94,10 +94,11 @@ public class AttackComponent : NetworkBehaviour
         int _damageDeal = GetDamageDeal(_stats,_targetStats);
 
         _targetStats.RemoveHealth(_damageDeal);
-        
+        target = null;
+
         if (_targetStats.currentHealth.Value <= 0)
         {
-            target = null;
+
             OnKillTarget?.Invoke();
 
             int _experienceGain = _targetStats.RetreiveExperience();
@@ -109,7 +110,7 @@ public class AttackComponent : NetworkBehaviour
     public int GetDamageDeal(StatsComponent _damageDealer, StatsComponent _target)
     {
         int _damageDeal = _damageDealer.RetreiveDamageAmount();
-        int _damageReduction = _target.RetreiveDamageReduction();
+        int _damageReduction = _target.RetreiveArmorReduction();
 
         int _result = _damageDeal - _damageReduction;
         _result = _result <= 0 ? 1 : _result;

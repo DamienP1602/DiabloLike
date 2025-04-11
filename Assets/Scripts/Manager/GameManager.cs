@@ -25,6 +25,8 @@ public class GameManager : Singleton<GameManager>
 
     public List<PlayerGameInfo> AllPlayers => allPlayers;
 
+    public Player Player => allPlayers[0].objectReference;
+
     protected override void Awake()
     {
         base.Awake();

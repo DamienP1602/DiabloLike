@@ -27,6 +27,7 @@ public struct CharacterSaveData
     public int classID;
     public string className;
 
+    public int gold;
     public List<SaveItemData> itemIDInventory;
     public List<SaveItemData> itemIDEquiped;
 

@@ -21,6 +21,8 @@ MonoBehaviour:
     rarity: 0
   type: 2
   canBeStacked: 0
+  ItemDescriptions:
+  - +2 Damage
   damage: 2
   strength: 0
   intelligence: 0

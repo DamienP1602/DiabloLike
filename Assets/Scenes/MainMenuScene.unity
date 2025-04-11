@@ -1275,7 +1275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allSpells:
   - {fileID: 11400000, guid: 8d219a21b3d06e943bfab4059261e993, type: 2}
-  - {fileID: 11400000, guid: 4fbc9ed8fefbcfe43868edb02a60d529, type: 2}
+  - {fileID: 11400000, guid: f189f2293298f584182c62c985326576, type: 2}
 --- !u!114 &864227360
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,21 +6,24 @@ using UnityEngine;
 
 public class MovementComponent : NetworkBehaviour
 {
-    AnimationComponent animRef = null;
+    AnimationComponent animRef;
 
     [Header("DEBUG")]
     [SerializeField] bool drawDestination;
 
     [Header("Component")]
-    [SerializeField] float moveSpeed = 10.0f, rotateSpeed = 50.0f;
-    [SerializeField] float minDist = 0.0f;
-    [SerializeField] bool canMove = true;
+    [SerializeField] float moveSpeed, rotateSpeed;
+    [SerializeField] float minDist;
+    [SerializeField] bool canMove;
 
-    public float cantMoveDuration = 0.0f;
-    [SerializeField] float cantMoveProgession = 0.0f;
+    public float cantMoveDuration;
+    [SerializeField] float cantMoveProgession;
 
-    [SerializeField] Vector3 destination = Vector3.zero;
-    [SerializeField] GameObject target = null;
+    [SerializeField] Vector3 destination;
+    [SerializeField] GameObject target ;
+
+    [SerializeField] Vector3 rotationTarget;
+    [SerializeField] bool needToRotate;
 
     public Vector3 Destination => destination;
     public GameObject Target => target;
@@ -28,6 +31,11 @@ public class MovementComponent : NetworkBehaviour
     public bool IsAtLocation()
     {
         return Vector3.Distance(destination, transform.position) <= minDist;
+    }
+
+    public bool IsAtRotationTarget()
+    {
+        return (rotationTarget - transform.position) == Vector3.zero;
     }
 
     void Start()
@@ -39,17 +47,28 @@ public class MovementComponent : NetworkBehaviour
     void Update()
     {
         if (target)
-            destination = target.transform.position;
+            destination = SetDestinationFromTarget();
+
+        RotateToDestination();
 
         if (!canMove)
         {
             OnMoveRestriction();
             return;
         }
-
-
         MoveToDestination();
-        RotateToDestination();
+    }
+
+    Vector3 SetDestinationFromTarget()
+    {
+        Vector3 _targetPos = target.transform.position;
+        return new Vector3(_targetPos.x,transform.position.y,_targetPos.z);
+    }
+
+    public void SetRotationTarget(bool _value,Vector3 _target = default)
+    {
+        rotationTarget = _target;
+        needToRotate = _value;
     }
 
     public void SetCantMove(float _duration)
@@ -92,7 +111,19 @@ public class MovementComponent : NetworkBehaviour
 
     void RotateToDestination()
     {
-        Vector3 _lookAt = Destination - transform.position;
+        if (needToRotate)
+        {
+            Rotate(rotationTarget);
+        }
+        else
+        {
+            Rotate(Destination);
+        }
+    }
+
+    void Rotate(Vector3 _destination)
+    {
+        Vector3 _lookAt = _destination - transform.position;
         if (_lookAt == Vector3.zero) return;
 
         Quaternion _rot = Quaternion.LookRotation(_lookAt);
@@ -105,10 +136,10 @@ public class MovementComponent : NetworkBehaviour
         minDist = 0.0f;
     }
 
-    public void SetTarget(GameObject _target, float _rangeAttack)
+    public void SetTarget(GameObject _target, float _minimumRange)
     {
         target = _target;
-        minDist = _rangeAttack;
+        minDist = _minimumRange;
     }
 
     private void OnDrawGizmos()

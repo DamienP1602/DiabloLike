@@ -3,17 +3,21 @@ using UnityEngine;
 
 public class ClickComponent : MonoBehaviour
 {
-    public event Action<GameObject> OnTarget = null;
-    public event Action<Vector3> OnGround = null;
+    public event Action<GameObject> OnTarget;
+    public event Action<Vector3> OnGround;
+    public event Action<Interactable> OnGPE;
 
-    bool overlayMode = false;
+    bool overlayMode;
 
-    [SerializeField] LayerMask playerLayer = 0;
-    [SerializeField] LayerMask groundLayer = 0;
-    [SerializeField] LayerMask enemyLayer = 0;
-    [SerializeField] LayerMask UILayer = 0;
+    [SerializeField] LayerMask playerLayer;
+    [SerializeField] LayerMask groundLayer;
+    [SerializeField] LayerMask enemyLayer;
+    [SerializeField] LayerMask GPELayer;
 
     CameraComponent cameraRef;
+
+    public LayerMask EnemyLayer => enemyLayer;
+    public LayerMask GroundLayer => groundLayer;
 
     public void Start()
     {
@@ -35,6 +39,14 @@ public class ClickComponent : MonoBehaviour
             if (Physics.Raycast(_ray, out _result, 100.0f, enemyLayer))
             {
                 OnTarget?.Invoke(_result.transform.gameObject);
+                return;
+            }
+
+            //If the Ray touch a GPE, activate OnGPE
+            if (Physics.Raycast(_ray, out _result, 100.0f, GPELayer))
+            {
+                Interactable _interactable = _result.collider.GetComponent<Interactable>();
+                OnGPE?.Invoke(_interactable);
                 return;
             }
 

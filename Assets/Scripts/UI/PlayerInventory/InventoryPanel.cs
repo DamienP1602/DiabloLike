@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 
 public class InventoryPanel : MonoBehaviour
@@ -10,6 +11,9 @@ public class InventoryPanel : MonoBehaviour
 
     public event Action<EquipmentType, ItemStored,ItemStored> OnEquipEquipment;
     public event Action<EquipmentType, ItemStored,ItemStored> OnDesequipEquipment;
+
+    [SerializeField] InformationPanel informationPanel;
+    [SerializeField] TMP_Text goldText;
 
     [SerializeField] List<EquipmentSlot> equipSlots;
     [SerializeField] List<ItemSlot> allSlots;
@@ -40,6 +44,9 @@ public class InventoryPanel : MonoBehaviour
         {
             _slot.OnItemClick += SelectItem;
             _slot.OnItemExecute += ExecuteItem;
+
+            _slot.Button.AddHoverAction(() => informationPanel.SetInformations(_slot),1.0f);
+            _slot.Button.AddOnExitAction(() => informationPanel.Clear());
         }
 
         equipSlots = GetComponentsInChildren<EquipmentSlot>(true).ToList();
@@ -48,6 +55,9 @@ public class InventoryPanel : MonoBehaviour
             _slot.OnItemClick += InteractWithItem;
             _slot.OnItemClick += (_slot) => InitInventoryPanel();
             _slot.ClearItem();
+
+            _slot.Button.AddHoverAction(() => informationPanel.SetInformations(_slot), 1.0f);
+            _slot.Button.AddOnExitAction(() => informationPanel.Clear());
         }
     }
 
@@ -110,6 +120,7 @@ public class InventoryPanel : MonoBehaviour
             _slot.ClearItem();
             _slot.SetSelectionStatus(true);
         }
+        informationPanel.Clear();
     }
 
     public void SelectItem(InventoryItem _selectedItem)
@@ -207,5 +218,10 @@ public class InventoryPanel : MonoBehaviour
                 return;
             }
         }
+    }
+
+    public void SetGoldText(int _gold)
+    {
+        goldText.text = _gold.ToString();
     }
 }

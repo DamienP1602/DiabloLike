@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum ItemType
@@ -19,6 +20,8 @@ public abstract class BaseItem : ScriptableObject
     public ItemType type;
 
     public bool canBeStacked;
+
+    public List<string> ItemDescriptions;
 
     public void InitOwner(Player _owner) => owner = _owner;
 

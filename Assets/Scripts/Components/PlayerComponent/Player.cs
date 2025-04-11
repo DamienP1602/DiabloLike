@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(CameraComponent),typeof(ClickComponent), typeof(HUD))]
 [RequireComponent(typeof(InputComponent), typeof(Inventory), typeof(SpellComponent))]
-[RequireComponent(typeof(ClassComponent))]
+[RequireComponent(typeof(ClassComponent),typeof(InteractComponent))]
 public class Player : BaseCharacter
 {
     CameraComponent cameraComp;
@@ -12,6 +12,7 @@ public class Player : BaseCharacter
     Inventory inventory;
     SpellComponent spellComp;
     ClassComponent classComp;
+    InteractComponent interactComp;
 
     public CameraComponent CameraComponent => cameraComp;
     public ClickComponent ClickComponent => clickComp;
@@ -20,6 +21,7 @@ public class Player : BaseCharacter
     public Inventory Inventory => inventory;
     public SpellComponent SpellComponent => spellComp;
     public ClassComponent ClassComponent => classComp;
+    public InteractComponent InteractComponent => interactComp;
 
     private void Awake()
     {
@@ -47,6 +49,7 @@ public class Player : BaseCharacter
         inventory = GetComponent<Inventory>();
         spellComp = GetComponent<SpellComponent>();
         classComp = GetComponent<ClassComponent>();
+        interactComp = GetComponent<InteractComponent>();
     }
 
     override protected void EventAssignation()
@@ -56,9 +59,13 @@ public class Player : BaseCharacter
         clickComp.OnGround += movementComponent.SetDestination;
         clickComp.OnGround += (_target) => attackComponent.SetTarget(null);
         clickComp.OnGround += (_target) => movementComponent.SetTarget(null,0.0f);
+        clickComp.OnGround += (_target) => interactComp.SetTarget(null);
 
         clickComp.OnTarget += attackComponent.SetTarget;
         clickComp.OnTarget += (_target) => movementComponent.SetTarget(_target, attackComponent.Range);
+
+        clickComp.OnGPE += (_interactable) =>  movementComponent.SetTarget(_interactable.gameObject,_interactable.Range - 1.0f);
+        clickComp.OnGPE += interactComp.SetTarget;
 
         attackComponent.OnKillTarget += () => movementComponent.SetTarget(null, 0.0f);
     }
@@ -80,10 +87,12 @@ public class Player : BaseCharacter
         statsComponent.ComputeNextExperienceCap();
         hud.Init(this);
         inventory.InitFromData(_data);
+        inventory.SetGoldAmount(_data.gold);
         spellComp.InitFromData(_data);
         hud.Overlay.SetEquipedItemFromData(_data);
         hud.Overlay.SkillsPanel.LoadSkillImage();
         hud.Overlay.ClassPanel.CompetencesPanel.InitFromClassData(_classData);
+        hud.Overlay.InventoryPanel.SetGoldText(_data.gold);
         spellComp.SetSpellSocket();
 
         if (_checkForMultiplayerOwnership)
@@ -117,6 +126,7 @@ public class Player : BaseCharacter
 
 
         inventory.OnConsumableUse += hud.Overlay.UpdateConsumable;
+        inventory.OnChangeGoldAmount += hud.Overlay.InventoryPanel.SetGoldText;
 
         spellComp.OnLaunchSpell += (_spell) => hud.Overlay.SkillsPanel.StartSkillCooldown(_spell,statsComponent.currentMana.Value);
         spellComp.OnSpellReady += (_spell) => hud.Overlay.SkillsPanel.StopSkillCooldown(_spell,statsComponent.currentMana.Value);
