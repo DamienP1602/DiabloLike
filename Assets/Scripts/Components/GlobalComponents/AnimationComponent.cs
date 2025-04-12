@@ -4,15 +4,16 @@ public class AnimationComponent : MonoBehaviour
 {
     Animator animator;
 
-    void Start()
+    private void Start()
     {
         animator = GetComponent<Animator>();
     }
 
     public void SetAnimatorController(RuntimeAnimatorController _controller)
     {
-        animator.runtimeAnimatorController = null;
+        animator = GetComponent<Animator>();
 
+        animator.runtimeAnimatorController = null;
         animator.runtimeAnimatorController = _controller;
     }
 

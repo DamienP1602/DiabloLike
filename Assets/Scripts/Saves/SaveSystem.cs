@@ -12,7 +12,14 @@ public static class SaveSystem
     public static void InitSaveSystem()
     {
         data = new SaveData();
-        string _path = GetPath();
+        string _path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\GhostsCallSaves\\";
+        if (!IsFileExisting(_path))
+            Directory.CreateDirectory(_path);
+
+        _path += "\\Saves.json";
+        if (!IsFileExisting(_path))
+            File.WriteAllText(_path, "");
+
         string _jsonData = GetJsonData(_path);
         if (string.IsNullOrEmpty(_jsonData)) return;
 
@@ -59,6 +66,12 @@ public static class SaveSystem
         string _jsonData = JsonConvert.SerializeObject(data, Formatting.Indented);
 
         WriteInFile(_path, _jsonData);
+    }
+
+    static bool IsFileExisting(string _path)
+    {
+        bool _exist = File.Exists(_path);
+        return _exist;
     }
 
     static string GetPath()
