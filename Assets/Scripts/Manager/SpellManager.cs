@@ -5,8 +5,10 @@ using UnityEngine;
 public class SpellManager : Singleton<SpellManager>
 {
     [SerializeField] List<Spell> allSpells;
+    [SerializeField] List<Passif> allPassifs;
 
     public List<Spell> AllSpells => allSpells;
+    public List<Passif> AllPassifs => allPassifs;
 
     protected override void Awake()
     {
@@ -16,16 +18,9 @@ public class SpellManager : Singleton<SpellManager>
         {
             _spell.ResetSpell();
         }
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        foreach (Passif _passif in allPassifs)
+        {
+            _passif.currentCooldown = 0.0f;
+        }
     }
 }

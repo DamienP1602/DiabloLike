@@ -84,13 +84,15 @@ public class Player : BaseCharacter
         inventory.SetGoldAmount(_data.gold);
         spellComp.InitFromData(_data);
         hud.Overlay.SetEquipedItemFromData(_data);
-        hud.Overlay.SkillsPanel.LoadSkillImage();
         hud.Overlay.ClassPanel.CompetencesPanel.InitFromClassData(_classData);
+        hud.Overlay.ClassPanel.CompetencesPanel.SetCompetenceFromData(_data);
         hud.Overlay.InventoryPanel.SetGoldText(_data.gold);
+
+        hud.Overlay.SkillsPanel.LoadSkillIcon();
+        hud.Overlay.SkillsPanel.LoadPassifIcon();
         spellComp.SetSpellSocket();
 
         cameraComp.CreateCamera();
-
 
         SetEventOnUI();
         SetInputs();
@@ -112,6 +114,9 @@ public class Player : BaseCharacter
 
         hud.Overlay.ClassPanel.CompetencesPanel.OnSpellLearn += spellComp.AddSpell;
         hud.Overlay.ClassPanel.CompetencesPanel.OnSpellDesequip += spellComp.RemoveSpell;
+
+        hud.Overlay.ClassPanel.CompetencesPanel.OnPassifLearn += spellComp.AddPassif;
+        hud.Overlay.ClassPanel.CompetencesPanel.OnPassifDesequip += spellComp.RemovePassif;
 
 
         inventory.OnConsumableUse += hud.Overlay.UpdateConsumable;

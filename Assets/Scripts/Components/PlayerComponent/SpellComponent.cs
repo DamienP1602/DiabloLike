@@ -13,19 +13,19 @@ public class SpellComponent : MonoBehaviour
 
     [Header("Component")]
     [SerializeField] List<Spell> spells;
-    [SerializeField] List<Spell> passifsSpells;
+    [SerializeField] List<Passif> passifsSpells;
     [SerializeField] Transform spellSocket;
 
     AnimationComponent animRef;
     MovementComponent movementRef;
     CameraComponent cameraRef;
-    Vector3 test;
+    Player playerRef;
 
     List<Spell> spellsOnCooldown;
     Spell currentSpell;
 
     public List<Spell> Spells => spells;
-    public List<Spell> PassifsSpells => passifsSpells;
+    public List<Passif> Passifs => passifsSpells;
 
 
     // Start is called before the first frame update
@@ -34,9 +34,9 @@ public class SpellComponent : MonoBehaviour
         animRef = GetComponent<AnimationComponent>();
         movementRef = GetComponent<MovementComponent>();
         cameraRef = GetComponent<CameraComponent>();
+        playerRef = GetComponent<Player>();
         ResetSpells();
         spellsOnCooldown = new List<Spell>();
-
     }
 
     private void Update()
@@ -53,6 +53,18 @@ public class SpellComponent : MonoBehaviour
                 break;
             }
         }
+
+        foreach (Passif _passif in passifsSpells)
+        {
+            if (_passif.IsAlwaysActive) continue;
+
+            _passif.currentCooldown += Time.deltaTime;
+            if (_passif.currentCooldown >= _passif.cooldown)
+            {
+                _passif.currentCooldown = 0.0f;
+                _passif.Activate(playerRef);
+            }
+        }
     }
 
     public void SetSpellSocket()
@@ -65,22 +77,30 @@ public class SpellComponent : MonoBehaviour
 
     public void RemoveSpell(Spell _spellToRemove)
     {
-        foreach (Spell _spellEquiped in spells)
-        {
-            if (_spellEquiped == _spellToRemove)
-            {
-                spells.Remove(_spellToRemove);
-                _spellEquiped.ResetSpell();
-                return;
-            }
-        }
-
+        spells.Remove(_spellToRemove);
+        _spellToRemove.ResetSpell();
     }
 
     public void AddSpell(Spell _spell)
     {
         spells.Add(_spell);
         _spell.ResetSpell();
+    }
+
+    public void AddPassif(Passif _passif)
+    {
+        passifsSpells.Add(_passif);
+        _passif.currentCooldown = 0.0f;
+
+        if (_passif.IsAlwaysActive)
+            _passif.Activate(playerRef);
+    }
+
+    public void RemovePassif(Passif _passif)
+    {
+        passifsSpells.Remove(_passif);
+        if (_passif.IsAlwaysActive)
+            _passif.Desactivate(playerRef);
     }
 
     void ResetSpells()
@@ -126,7 +146,7 @@ public class SpellComponent : MonoBehaviour
 
     void ExecuteSpell()
     {
-        currentSpell.Execute(GetComponent<Player>(),spellSocket);
+        currentSpell.Execute(playerRef,spellSocket);
         movementRef.SetRotationTarget(false);
     }
 
@@ -143,7 +163,6 @@ public class SpellComponent : MonoBehaviour
         if (Physics.Raycast(_ray, out _result, 100.0f, GetComponent<ClickComponent>().GroundLayer))
         {
             movementRef.SetRotationTarget(true,_result.point);
-            test = _result.point;
         }
     }
 
@@ -162,31 +181,31 @@ public class SpellComponent : MonoBehaviour
                 Gizmos.DrawWireSphere(transform.position,_standingSpell.range);
             }
         }
-        Gizmos.DrawWireSphere(test, 1.0f);
     }
 
     public void InitFromData(CharacterSaveData _data)
     {
         List<Spell> _allSpells = SpellManager.Instance.AllSpells;
-        List<int> _savedIDSpells = _data.spellsIDEquiped;
+        List<SaveSpellData> _savedIDSpells = _data.spellsEquiped;
 
-        foreach (int _spellID in _savedIDSpells)
+        foreach (SaveSpellData _spellData in _savedIDSpells)
         {
             foreach (Spell _spell in _allSpells)
             {
-                if (_spellID == _spell.ID)
+                if (_spellData.ID == _spell.ID)
                     spells.Add(_spell);
             }
         }
 
-        List<int> _savedIDPassifs = _data.passifIDEquiped;
+        List<Passif> _allPassifs = SpellManager.Instance.AllPassifs;
+        List<SaveSpellData> _savedIDPassifs = _data.passifEquiped;
 
-        foreach (int _passifID in _savedIDPassifs)
+        foreach (SaveSpellData _passifData in _savedIDPassifs)
         {
-            foreach (Spell _spell in _allSpells)
+            foreach (Passif _passif in _allPassifs)
             {
-                if (_passifID == _spell.ID)
-                    spells.Add(_spell);
+                if (_passifData.ID == _passif.ID)
+                    passifsSpells.Add(_passif);
             }
         }
     }

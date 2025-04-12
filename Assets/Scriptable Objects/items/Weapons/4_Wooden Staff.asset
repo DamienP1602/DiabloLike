@@ -10,21 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d57390034b6343643aab766e13c990ae, type: 3}
-  m_Name: Skeletal Staff
+  m_Name: 4_Wooden Staff
   m_EditorClassIdentifier: 
-  ID: 5
+  ID: 4
   owner: {fileID: 0}
-  icon: {fileID: 0}
-  itemName: Skeletal Staff
+  icon: {fileID: 2800000, guid: a6e2cef3b8b1657448ae161a861a2439, type: 3}
+  itemName: Wooden Staff
   itemPrice: 0
   ratity:
-    rarity: 1
+    rarity: 0
   type: 2
   canBeStacked: 0
   ItemDescriptions:
-  - +3 Damage
-  - +5 Intelligence
-  damage: 3
+  - +1 Damage
+  damage: 1
   strength: 0
-  intelligence: 5
+  intelligence: 0
   agility: 0

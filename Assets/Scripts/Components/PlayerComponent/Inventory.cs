@@ -220,7 +220,7 @@ public class Inventory : MonoBehaviour
     {
         List<BaseItem> _allItems = ItemManager.Instance.AllItems;//
 
-        List<SaveItemData> _savedItems = _data.itemIDInventory;
+        List<SaveItemData> _savedItems = _data.itemInInventory;
         if (_savedItems != null)
         {
             foreach (SaveItemData _save in _savedItems)
@@ -233,7 +233,7 @@ public class Inventory : MonoBehaviour
             }
         }
 
-        List<SaveItemData> _savedEquipedItems = _data.itemIDEquiped;
+        List<SaveItemData> _savedEquipedItems = _data.itemEquiped;
         if ( _savedEquipedItems != null)
         {
             foreach (SaveItemData _save in _savedEquipedItems)

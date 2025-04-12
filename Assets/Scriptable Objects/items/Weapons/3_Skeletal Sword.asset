@@ -10,20 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d57390034b6343643aab766e13c990ae, type: 3}
-  m_Name: Wooden Staff
+  m_Name: 3_Skeletal Sword
   m_EditorClassIdentifier: 
-  ID: 4
+  ID: 3
   owner: {fileID: 0}
-  icon: {fileID: 0}
-  itemName: Wooden Staff
-  itemPrice: 0
+  icon: {fileID: 2800000, guid: 5cb77658c3c43d84f85fa3b92a5a77ff, type: 3}
+  itemName: Skeletal Sword
+  itemPrice: 45
   ratity:
-    rarity: 0
+    rarity: 1
   type: 2
   canBeStacked: 0
   ItemDescriptions:
-  - +1 Damage
-  damage: 1
-  strength: 0
+  - +5 Damage
+  - +2 Strength
+  - +1 Agility
+  damage: 5
+  strength: 2
   intelligence: 0
-  agility: 0
+  agility: 1

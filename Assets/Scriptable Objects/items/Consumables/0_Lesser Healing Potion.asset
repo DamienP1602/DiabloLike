@@ -9,21 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d57390034b6343643aab766e13c990ae, type: 3}
-  m_Name: Iron Sword
+  m_Script: {fileID: 11500000, guid: 9f18aaa1d6c630449b037b57fd84cd2b, type: 3}
+  m_Name: 0_Lesser Healing Potion
   m_EditorClassIdentifier: 
-  ID: 2
+  ID: 0
   owner: {fileID: 0}
-  icon: {fileID: 2800000, guid: c12c6ea6fa03201449c66ad8e16ab5b1, type: 3}
-  itemName: Iron Sword
-  itemPrice: 15
+  icon: {fileID: 2800000, guid: 15e2971534b5ed84696df806da8a8e77, type: 3}
+  itemName: Lesser Healing Potion
+  itemPrice: 5
   ratity:
     rarity: 0
-  type: 2
-  canBeStacked: 0
+  type: 1
+  canBeStacked: 1
   ItemDescriptions:
-  - +2 Damage
-  damage: 2
-  strength: 0
-  intelligence: 0
-  agility: 0
+  - Restaures 5 Health.
+  lifeRestaured: 5

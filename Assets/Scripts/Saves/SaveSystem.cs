@@ -102,37 +102,37 @@ public static class SaveSystem
 
         _data.gold = _character.Inventory.Gold;
         List<ItemStored> _allItems = _character.Inventory.AllItems;
-        _data.itemIDInventory = new List<SaveItemData>();
+        _data.itemInInventory = new List<SaveItemData>();
         foreach (ItemStored _itemStored in _allItems)
         {
             BaseItem _item = _itemStored.item;
             if (!_item) continue;
 
-            _data.itemIDInventory.Add(new SaveItemData(_item.ID, _item.itemName, _itemStored.amount));
+            _data.itemInInventory.Add(new SaveItemData(_item.ID, _item.itemName, _itemStored.amount));
         }
 
         List<ItemStored> _allItemsEquiped = _character.Inventory.AllItemsEquiped;
-        _data.itemIDEquiped = new List<SaveItemData>();
+        _data.itemEquiped = new List<SaveItemData>();
         foreach (ItemStored _itemEquiped in _allItemsEquiped)
         {
             BaseItem _item = _itemEquiped.item;
             if (!_item) continue;
 
-            _data.itemIDEquiped.Add(new SaveItemData(_item.ID, _item.itemName, _itemEquiped.amount));
+            _data.itemEquiped.Add(new SaveItemData(_item.ID, _item.itemName, _itemEquiped.amount));
         }
 
         List<Spell> _characterSpells = _character.SpellComponent.Spells;
-        _data.spellsIDEquiped = new List<int>();
+        _data.spellsEquiped = new List<SaveSpellData>();
         foreach (Spell _spell in _characterSpells)
         {
-            _data.spellsIDEquiped.Add(_spell.ID);
+            _data.spellsEquiped.Add(new SaveSpellData(_spell.ID, _spell.name));
         }
 
-        List<Spell> _characterPassifs = _character.SpellComponent.PassifsSpells;
-        _data.passifIDEquiped = new List<int>();
-        foreach (Spell _passif in _characterPassifs)
+        List<Passif> _characterPassifs = _character.SpellComponent.Passifs;
+        _data.passifEquiped = new List<SaveSpellData>();
+        foreach (Passif _passif in _characterPassifs)
         {
-            _data.passifIDEquiped.Add(_passif.ID);
+            _data.passifEquiped.Add(new SaveSpellData(_passif.ID, _passif.name));
         }
 
         _data.level = _character.StatsComponent.level.Value;
@@ -162,11 +162,11 @@ public static class SaveSystem
         _data.className = _character.className;
 
         _data.gold = 0;
-        _data.itemIDInventory = new List<SaveItemData>();
-        _data.itemIDEquiped = new List<SaveItemData>();
+        _data.itemInInventory = new List<SaveItemData>();
+        _data.itemEquiped = new List<SaveItemData>();
 
-        _data.spellsIDEquiped = new List<int>();
-        _data.passifIDEquiped = new List<int>();
+        _data.spellsEquiped = new List<SaveSpellData>();
+        _data.passifEquiped = new List<SaveSpellData>();
 
         _data.level = 1;
         _data.experience = 0;

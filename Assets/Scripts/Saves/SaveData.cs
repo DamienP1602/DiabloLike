@@ -16,6 +16,18 @@ public struct SaveItemData
     }
 }
 
+public struct SaveSpellData
+{
+    public int ID;
+    public string name;
+
+    public SaveSpellData(int _id, string _name)
+    {
+        ID = _id;
+        name = _name;
+    }
+}
+
 public class SaveData
 {
     public List<CharacterSaveData> allCharacters = new List<CharacterSaveData>();
@@ -28,11 +40,11 @@ public struct CharacterSaveData
     public string className;
 
     public int gold;
-    public List<SaveItemData> itemIDInventory;
-    public List<SaveItemData> itemIDEquiped;
+    public List<SaveItemData> itemInInventory;
+    public List<SaveItemData> itemEquiped;
 
-    public List<int> spellsIDEquiped;
-    public List<int> passifIDEquiped;
+    public List<SaveSpellData> spellsEquiped;
+    public List<SaveSpellData> passifEquiped;
     
     public int level;
     public int experience;

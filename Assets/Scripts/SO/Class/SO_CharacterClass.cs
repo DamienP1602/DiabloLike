@@ -1,12 +1,13 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public struct SpellCharacterData
+public struct SpellCharacterData<T>
 {
     public int minimumLevel;
-    public Spell spell;
+    public T spell;
 }
 
 [CreateAssetMenu(fileName = "Empty Class Data", menuName = "Character Class/Create Class Data")]
@@ -23,7 +24,8 @@ public class SO_CharacterClass : ScriptableObject
     public int intelligence;
     public int agility;
 
-    public List<SpellCharacterData> allSpells;
+    public List<SpellCharacterData<Spell>> allSpells;
+    public List<SpellCharacterData<Passif>> allPassifs;
 
     [Header("Graphic Data")]
     public CharacterPrevisualitationComponent characterPrevisualisation;

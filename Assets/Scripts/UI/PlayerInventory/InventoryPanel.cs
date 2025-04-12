@@ -167,14 +167,17 @@ public class InventoryPanel : MonoBehaviour
             DesequipItem(_equipmentSlot, _potentialItemStored);
             return;
         }
-        EquipItem(_equipmentSlot,_potentialItemStored);
+
+        // If there's an item selected => Will Equip it
+        if (currentSelectedItem)
+            EquipItem(_equipmentSlot,_potentialItemStored);
 
     }
 
     void DesequipItem(EquipmentSlot _equipmentSlot,ItemStored _potentialItemStored )
     {
         //If there's no item stored in the current slot => fail try and return
-        if (_equipmentSlot.ItemData == null) return;
+        if (_equipmentSlot.ItemData.item == null) return;
 
         SelectItem(_equipmentSlot);
         _equipmentSlot.SetSelectionStatus(true);

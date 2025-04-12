@@ -11,6 +11,8 @@ public class InformationPanel : MonoBehaviour
     
     public void SetInformations(InventoryItem _slot)
     {
+        if (_slot.ItemData.item == null) return;
+
         transform.position = _slot.transform.position + new Vector3(150.0f,0.0f);
         gameObject.SetActive(true);
         itemName.text = _slot.ItemData.item.itemName;

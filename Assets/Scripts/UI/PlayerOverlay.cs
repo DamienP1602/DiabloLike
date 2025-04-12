@@ -41,8 +41,11 @@ public class PlayerOverlay : MonoBehaviour
         inventoryPanel.OnEquipEquipment += (_type,_item1, _item2) => classPanel.StatsPanel.UpdateData();
         inventoryPanel.OnDesequipEquipment += (_type,_item1, _item2) => classPanel.StatsPanel.UpdateData();
 
-        classPanel.CompetencesPanel.OnSpellLearn += (_spell) =>  skillsPanel.LoadSkillImage();
-        classPanel.CompetencesPanel.OnSpellDesequip += (_spell) =>  skillsPanel.LoadSkillImage();
+        classPanel.CompetencesPanel.OnSpellLearn += (_spell) => skillsPanel.LoadSkillIcon();
+        classPanel.CompetencesPanel.OnSpellDesequip += (_spell) => skillsPanel.LoadSkillIcon();
+
+        classPanel.CompetencesPanel.OnPassifLearn += (_passif) => skillsPanel.LoadPassifIcon();
+        classPanel.CompetencesPanel.OnPassifDesequip += (_passif) => skillsPanel.LoadPassifIcon();
     }
 
     public void TogglePausePanel()
@@ -96,7 +99,7 @@ public class PlayerOverlay : MonoBehaviour
     public void SetEquipedItemFromData(CharacterSaveData _data)
     {
         List<BaseItem> _allItems = ItemManager.Instance.AllItems;
-        List<SaveItemData> _equipedItems = _data.itemIDEquiped;
+        List<SaveItemData> _equipedItems = _data.itemEquiped;
 
         bool _firstConsumableEquiped = false;
 
@@ -111,7 +114,7 @@ public class PlayerOverlay : MonoBehaviour
                         ItemStored _newItem = new ItemStored(_item);
                         _newItem.amount = _itemData.amount;
 
-                        if (_item.type == ItemType.CONSOMMABLE)//
+                        if (_item.type == ItemType.CONSOMMABLE)
                         {
                             EquipmentType _type = _firstConsumableEquiped ? EquipmentType.CONSUMABLE_TWO : EquipmentType.CONSUMABLE_ONE;
 

@@ -27,6 +27,9 @@ MonoBehaviour:
   allSpells:
   - minimumLevel: 1
     spell: {fileID: 11400000, guid: f189f2293298f584182c62c985326576, type: 2}
+  allPassifs:
+  - minimumLevel: 3
+    spell: {fileID: 11400000, guid: 2bcb554854b63a049bab0999deefcc0a, type: 2}
   characterPrevisualisation: {fileID: 2717591372011546379, guid: 29c05f6eebc9b3f4296cb47018b1f56c, type: 3}
   classIcon: {fileID: 2800000, guid: e141f0319be059746b765b74d90b2247, type: 3}
   classColor: {r: 1, g: 0.51359504, b: 0, a: 1}

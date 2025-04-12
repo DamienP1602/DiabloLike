@@ -39,7 +39,7 @@ public class HUD : MonoBehaviour
         Overlay.InventoryPanel.SetInventory(_player.GetComponent<Inventory>());
 
         SpellComponent _spells = _player.GetComponent<SpellComponent>();
-        Overlay.SkillsPanel.InitSkillImages(_spells.Spells);
+        Overlay.SkillsPanel.InitSkillImages(_spells.Spells, _spells.Passifs);
 
         Overlay.PausePanel.SetPlayerRef(_player);
     }
