@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6413440965147080242}
-  - component: {fileID: 6919735651700183399}
   - component: {fileID: 449498532889053981}
   - component: {fileID: 7964500898824707541}
   - component: {fileID: 5071265498757385064}
@@ -24,7 +23,6 @@ GameObject:
   - component: {fileID: 329457690630948588}
   - component: {fileID: 5827040778827092566}
   - component: {fileID: 1824384987600259392}
-  - component: {fileID: 4127568133331988264}
   - component: {fileID: 638660867337769035}
   - component: {fileID: 4503808652217252739}
   m_Layer: 3
@@ -49,27 +47,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6919735651700183399
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6043771663029508155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 401909529
-  InScenePlacedSourceGlobalObjectIdHash: 401909529
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &449498532889053981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,8 +196,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5bb4f519c627045ba9e7534d447be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransitionStateInfoList: []
-  m_Animator: {fileID: 7275699861973177219}
 --- !u!114 &3620010898903319746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,37 +329,6 @@ MonoBehaviour:
   spells: []
   passifsSpells: []
   spellSocket: {fileID: 0}
---- !u!114 &4127568133331988264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6043771663029508155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df2868252ab5c4d1da357e8f11f1b524, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UseUnreliableDeltas: 0
-  SyncPositionX: 1
-  SyncPositionY: 1
-  SyncPositionZ: 1
-  SyncRotAngleX: 1
-  SyncRotAngleY: 1
-  SyncRotAngleZ: 1
-  SyncScaleX: 1
-  SyncScaleY: 1
-  SyncScaleZ: 1
-  PositionThreshold: 0.001
-  RotAngleThreshold: 0.01
-  ScaleThreshold: 0.01
-  UseQuaternionSynchronization: 0
-  UseQuaternionCompression: 0
-  UseHalfFloatPrecision: 0
-  InLocalSpace: 0
-  Interpolate: 1
-  SlerpPosition: 0
 --- !u!114 &638660867337769035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,3 +354,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff5a6e01b1a74c4da7b5108e57f9dac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}

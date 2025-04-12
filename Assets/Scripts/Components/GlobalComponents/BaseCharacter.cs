@@ -1,12 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.Netcode;
 using UnityEngine;
 
 [RequireComponent(typeof(StatsComponent), typeof(AnimationComponent), typeof(MovementComponent))]
 [RequireComponent(typeof(AttackComponent), typeof(BoxCollider), typeof(Rigidbody))]
-public abstract class BaseCharacter : NetworkBehaviour
+public abstract class BaseCharacter : MonoBehaviour
 {
     [SerializeField] protected string characterName;
     public string CharacterName => characterName;

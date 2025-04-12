@@ -45,7 +45,6 @@ GameObject:
   - component: {fileID: 4321182444544008564}
   - component: {fileID: 2881734420202022093}
   - component: {fileID: 7007406703267707543}
-  - component: {fileID: -4653190483911289309}
   - component: {fileID: 6346370277151789031}
   - component: {fileID: 7306213063628496619}
   - component: {fileID: 578787205634683124}
@@ -159,27 +158,6 @@ MonoBehaviour:
     value: 2
   agility:
     value: 2
---- !u!114 &-4653190483911289309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7086150782400259719}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2628470139
-  InScenePlacedSourceGlobalObjectIdHash: 2628470139
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &6346370277151789031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,8 +170,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b5bb4f519c627045ba9e7534d447be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransitionStateInfoList: []
-  m_Animator: {fileID: 5867568862120750015}
 --- !u!114 &7306213063628496619
 MonoBehaviour:
   m_ObjectHideFlags: 0

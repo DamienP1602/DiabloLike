@@ -1,57 +1,48 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
-using Unity.Netcode;
-using Unity.Netcode.Components;
 using UnityEngine;
 
-public class AnimationComponent : ClientNetworkAnimator
-{    
+public class AnimationComponent : MonoBehaviour
+{
+    Animator animator;
+
     void Start()
     {
-        Animator = GetComponent<Animator>();
-        OnIsServerAuthoritative();
-    }
-
-    protected override bool OnIsServerAuthoritative()
-    {
-        return false;
+        animator = GetComponent<Animator>();
     }
 
     public void SetAnimatorController(RuntimeAnimatorController _controller)
     {
-        Animator.runtimeAnimatorController = null;
+        animator.runtimeAnimatorController = null;
 
-        Animator.runtimeAnimatorController = _controller;
+        animator.runtimeAnimatorController = _controller;
     }
 
     public void StartMovementAnimation()
     {
-        Animator.SetBool("isRunning", true);
+        animator.SetBool("isRunning", true);
     }
 
     public void StopMovementAnimation()
     {
-        Animator.SetBool("isRunning", false);
+        animator.SetBool("isRunning", false);
     }
 
     public void StartAttackAnimation()
     {
-        Animator.SetBool("attack", true);
+        animator.SetBool("attack", true);
     }
 
     public void StopAttackAnimation()
     {
-        Animator.SetBool("attack", false);
+        animator.SetBool("attack", false);
     }
 
     public void StartSpellAnimation(string _spellName)
     {
-        Animator.SetBool(_spellName, true);
+        animator.SetBool(_spellName, true);
     }
 
     public void StopSpellAnimation(string _spellName)
     {
-        Animator.SetBool(_spellName, false);
+        animator.SetBool(_spellName, false);
     }
 }

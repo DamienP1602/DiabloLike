@@ -28,12 +28,6 @@ public class Player : BaseCharacter
         DontDestroyOnLoad(gameObject);
     }
 
-    public override void OnNetworkSpawn()
-    {
-        base.OnNetworkSpawn();
-        //InitPlayer(true);
-    }
-
     void Update()
     {
         
@@ -71,7 +65,7 @@ public class Player : BaseCharacter
     }
 
 
-    public void InitPlayer(bool _checkForMultiplayerOwnership, CharacterSaveData _data, SO_CharacterClass _classData)
+    public void InitPlayer(CharacterSaveData _data, SO_CharacterClass _classData)
     {
         base.Start();
         
@@ -94,11 +88,6 @@ public class Player : BaseCharacter
         hud.Overlay.ClassPanel.CompetencesPanel.InitFromClassData(_classData);
         hud.Overlay.InventoryPanel.SetGoldText(_data.gold);
         spellComp.SetSpellSocket();
-
-        if (_checkForMultiplayerOwnership)
-        {
-            if (!IsOwner) return;
-        }
 
         cameraComp.CreateCamera();
 

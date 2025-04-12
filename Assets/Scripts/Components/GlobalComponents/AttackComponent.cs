@@ -1,5 +1,4 @@
 using System;
-using Unity.Netcode;
 using UnityEngine;
 
 [Serializable]
@@ -22,7 +21,7 @@ class AttackData
     }
 }
 
-public class AttackComponent : NetworkBehaviour
+public class AttackComponent : MonoBehaviour
 {
     public event Action<float> onLaunchAttack = null;
     public event Action OnKillTarget = null;

@@ -19,7 +19,6 @@ public struct PlayerGameInfo
 
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] bool isMultiplayer;
     [SerializeField] List<PlayerGameInfo> allPlayers;
     [SerializeField] Player playerPrefab;
 
@@ -45,8 +44,6 @@ public class GameManager : Singleton<GameManager>
         
     }
 
-    public void SetMultiplayer(bool _value) => isMultiplayer = _value;
-
     public void AddPlayer(Player _player)
     {
         allPlayers.Add(new PlayerGameInfo(allPlayers.Count,_player));
@@ -55,7 +52,7 @@ public class GameManager : Singleton<GameManager>
     public void CreatePlayer(CharacterSaveData _data, SO_CharacterClass _classData)
     {
         Player _player = Instantiate(playerPrefab);
-        _player.InitPlayer(isMultiplayer,_data,_classData);
+        _player.InitPlayer(_data,_classData);
         AddPlayer(_player);
     }
 }

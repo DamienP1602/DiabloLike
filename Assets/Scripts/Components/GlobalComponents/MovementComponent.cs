@@ -1,11 +1,7 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 
-public class MovementComponent : NetworkBehaviour
-{
+public class MovementComponent : MonoBehaviour
+{   
     AnimationComponent animRef;
 
     [Header("DEBUG")]

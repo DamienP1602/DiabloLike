@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 
-public class CameraComponent : NetworkBehaviour
+public class CameraComponent : MonoBehaviour
 {
     [SerializeField] Camera cameraRef;
     [SerializeField] Camera renderCamera;

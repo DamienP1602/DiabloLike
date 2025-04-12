@@ -1,12 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.Netcode;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class CharacterSelectionComponent : MonoBehaviour
 {
@@ -92,22 +89,6 @@ public class CharacterSelectionComponent : MonoBehaviour
 
         GameManager.Instance.CreatePlayer(characterSelected.Value, classSelected);
     }
-
-    //void CreateSession()
-    //{
-    //    LoadLevel();
-    //    // Load Selected Character
-    //    NetworkManager.Singleton.StartHost();
-    //    GameManager.Instance.SetMultiplayer(true);
-    //}
-
-    //void JoinSession()
-    //{
-    //    LoadLevel();
-    //    // Load Selected Character
-    //    NetworkManager.Singleton.StartClient();
-    //    GameManager.Instance.SetMultiplayer(true);
-    //}
 
     public void SelectCharacter(CharacterSaveData _character)
     {
