@@ -17,9 +17,10 @@ MonoBehaviour:
   manaCost: 2
   cooldown: 4
   currentCooldown: 0
-  castTime: 0.8
+  castTime: 1
   isOnCooldown: 0
   animationSpellName: slash
+  needToRotatePlayer: 0
   range: 2
   damage:
     statUsed: 0
